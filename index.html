@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator PDF Sederhana</title>
+    <!-- CDN Library html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f1f5f9; 
+            padding: 30px 15px; 
+            margin: 0; 
+        }
+        .container { 
+            max-width: 600px; 
+            background: #ffffff; 
+            padding: 25px; 
+            border-radius: 10px; 
+            margin: 0 auto; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        h2 { margin-top: 0; color: #0f172a; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 5px; }
+        input[type="text"], textarea { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 6px; 
+            font-size: 14px; 
+        }
+        button { 
+            width: 100%; 
+            background-color: #2563eb; 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            border-radius: 6px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: background 0.2s;
+        }
+        button:hover { background-color: #1d4ed8; }
+
+        /* Template Khusus Output PDF (disembunyikan sementara) */
+        #pdf-template { 
+            display: none; 
+            padding: 30px; 
+            font-family: Times, serif; 
+        }
+        #pdf-template h1 { color: #1e293b; border-bottom: 2px solid #334155; padding-bottom: 8px; }
+        #pdf-template .meta { color: #64748b; font-size: 14px; margin-bottom: 20px; }
+        #pdf-template .content { font-size: 16px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Pembuat Dokumen PDF</h2>
+        
+        <div class="form-group">
+            <label for="judul">Judul Dokumen</label>
+            <input type="text" id="judul" placeholder="Contoh: Laporan Kegiatan Bulanan">
+        </div>
+
+        <div class="form-group">
+            <label for="penulis">Nama Pembuat / Penulis</label>
+            <input type="text" id="penulis" placeholder="Contoh: Budi Santoso">
+        </div>
+
+        <div class="form-group">
+            <label for="isi">Isi Konten Dokumen</label>
+            <textarea id="isi" rows="6" placeholder="Tuliskan isi laporan atau dokumen Anda di sini..."></textarea>
+        </div>
+
+        <button onclick="generatePDF()">Cetak & Download PDF</button>
+    </div>
+
+    <!-- Layout/Template HTML yang diubah menjadi PDF -->
+    <div id="pdf-template">
+        <h1 id="out-judul"></h1>
+        <div class="meta">
+            <strong>Penulis:</strong> <span id="out-penulis"></span> | 
+            <strong>Tanggal:</strong> <span id="out-tanggal"></span>
+        </div>
+        <div class="content" id="out-isi"></div>
+    </div>
+
+    <script>
+        function generatePDF() {
+            // 1. Ambil nilai input
+            const judul = document.getElementById('judul').value || 'Dokumen_Tanpa_Judul';
+            const penulis = document.getElementById('penulis').value || 'Anonim';
+            const isi = document.getElementById('isi').value || 'Tidak ada konten.';
+            const tanggal = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // 2. Tampilkan nilai ke template PDF
+            document.getElementById('out-judul').innerText = judul;
+            document.getElementById('out-penulis').innerText = penulis;
+            document.getElementById('out-tanggal').innerText = tanggal;
+            document.getElementById('out-isi').innerText = isi;
+
+            // 3. Render PDF menggunakan html2pdf.js
+            const element = document.getElementById('pdf-template');
+            element.style.display = 'block'; // Tampilkan sementara agar dapat dibaca script
+
+            const opt = {
+                margin:       15,
+                filename:     judul.toLowerCase().replace(/[^a-z0-9]/g, '_') + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                element.style.display = 'none'; // Sembunyikan kembali setelah selesai
+            });
+        }
+    </script>
+</body>
+</html>
