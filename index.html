@@ -3,123 +3,536 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator PDF Sederhana</title>
-    <!-- CDN Library html2pdf.js -->
+    <title>Generator PDF dengan Advanced Image Editor & Drag Fix</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * { box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f1f5f9; 
-            padding: 30px 15px; 
-            margin: 0; 
-        }
-        .container { 
-            max-width: 600px; 
-            background: #ffffff; 
-            padding: 25px; 
-            border-radius: 10px; 
-            margin: 0 auto; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-        h2 { margin-top: 0; color: #0f172a; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 5px; }
-        input[type="text"], textarea { 
-            width: 100%; 
-            padding: 10px; 
-            border: 1px solid #cbd5e1; 
-            border-radius: 6px; 
-            font-size: 14px; 
-        }
-        button { 
-            width: 100%; 
-            background-color: #2563eb; 
-            color: white; 
-            border: none; 
-            padding: 12px; 
-            border-radius: 6px; 
-            font-size: 15px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: background 0.2s;
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; color: #334155; }
+        .app-layout { display: flex; gap: 20px; max-width: 1300px; margin: 0 auto; align-items: flex-start; }
+        .editor-card, .preview-card { background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .editor-card { flex: 1; max-width: 400px; max-height: 90vh; overflow-y: auto; }
+        .preview-card { flex: 1.8; overflow-x: auto; }
+        h3, h4 { margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: #0f172a; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 4px; text-transform: uppercase; }
+        input[type="text"], select, textarea, input[type="file"], input[type="range"], input[type="number"] { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; }
+        .row-2 { display: flex; gap: 10px; }
+        .row-2 > div { flex: 1; }
+        
+        button { width: 100%; background-color: #2563eb; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: 600; cursor: pointer; margin-top: 8px; }
         button:hover { background-color: #1d4ed8; }
+        .btn-group { display: flex; gap: 5px; margin-top: 5px; }
+        .btn-group button { font-size: 11px; padding: 6px; background-color: #64748b; }
+        .btn-group button:hover { background-color: #475569; }
 
-        /* Template Khusus Output PDF (disembunyikan sementara) */
-        #pdf-template { 
-            display: none; 
-            padding: 30px; 
-            font-family: Times, serif; 
+        .editor-section { background: #f8fafc; padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 15px; }
+        .drag-info { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 8px; font-size: 11px; border-radius: 4px; margin-bottom: 12px; }
+
+        .pdf-canvas { 
+            position: relative; 
+            background: #ffffff; 
+            width: 210mm; 
+            min-height: 297mm; 
+            padding: 20mm; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
+            margin: 0 auto; 
+            box-sizing: border-box; 
+            overflow: hidden;
         }
-        #pdf-template h1 { color: #1e293b; border-bottom: 2px solid #334155; padding-bottom: 8px; }
-        #pdf-template .meta { color: #64748b; font-size: 14px; margin-bottom: 20px; }
-        #pdf-template .content { font-size: 16px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; }
+
+        /* CONTAINER EDITOR GAMBAR MODEREN */
+        .draggable-img {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 150px;
+            height: 150px;
+            cursor: move;
+            border: 2px dashed #2563eb;
+            user-select: none;
+            touch-action: none;
+            z-index: 1000;
+        }
+
+        .draggable-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            pointer-events: none; 
+            display: block;
+        }
+
+        /* RESIZE HANDLES DI SUDUT GAMBAR */
+        .handle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #ffffff;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+            z-index: 1001;
+        }
+        .handle-tl { top: -6px; left: -6px; cursor: nwse-resize; }
+        .handle-tr { top: -6px; right: -6px; cursor: nesw-resize; }
+        .handle-bl { bottom: -6px; left: -6px; cursor: nesw-resize; }
+        .handle-br { bottom: -6px; right: -6px; cursor: nwse-resize; }
+
+        /* FLOATING TOOLBAR ATAS GAMBAR */
+        .image-quick-bar {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f172a;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: flex;
+            gap: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 1002;
+        }
+
+        .image-quick-bar button {
+            background: #334155;
+            color: #fff;
+            border: none;
+            padding: 3px 8px;
+            font-size: 10px;
+            margin: 0;
+            border-radius: 3px;
+        }
+
+        .image-quick-bar button:hover {
+            background: #2563eb;
+        }
+
+        .tpl-1 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; padding: 0; }
+        .tpl-1 .side { background: #1e293b; color: #fff; padding: 25px; min-height: 297mm; }
+        .tpl-1 .main { padding: 25px; }
+        .tpl-2 { border: 15px solid #d97706; outline: 3px solid #b45309; text-align: center; }
+        .tpl-3 .header-bar { background: #2563eb; color: #fff; padding: 20px; margin: -20mm -20mm 20px -20mm; }
+        .tpl-4 .content-grid { column-count: 2; column-gap: 20px; font-family: 'Times New Roman', serif; }
+        .tpl-5 { background: #0f172a; color: #38bdf8; border: 2px solid #a855f7; }
+        .tpl-6 { background: #f8fafc; } .tpl-6 .card-box { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .tpl-7 { border-top: 25px solid #ec4899; border-radius: 20px 20px 0 0; }
+        .tpl-8 .kop { border-bottom: 4px double #000; text-align: center; padding-bottom: 10px; margin-bottom: 20px; }
+        .tpl-9 { border-left: 15px solid #10b981; }
+        .tpl-10 { width: 140mm; font-family: monospace; border: 1px dashed #000; margin: 0 auto; }
+        .tpl-11 { font-family: Georgia, serif; text-align: center; background: #fff1f2; border: 1px solid #fecdd3; }
+        .tpl-12 { background: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace; }
+        .tpl-13 { background: linear-gradient(135deg, #eff6ff 50%, #ffffff 50%); }
+        .tpl-14 h1 { font-size: 40px; text-transform: uppercase; font-weight: 900; color: #dc2626; }
+        .tpl-15 .badge { background: #fef3c7; color: #92400e; padding: 5px 10px; display: inline-block; font-weight: bold; }
+        .tpl-16 { background: #fef3c7; color: #78350f; font-family: Times, serif; }
+        .tpl-17 { border-top: 8px solid #ef4444; border-right: 8px solid #3b82f6; border-bottom: 8px solid #10b981; }
+        .tpl-18 { display: flex; flex-direction: column; justify-content: space-between; }
+        .tpl-19 h1 { font-size: 32px; font-weight: 800; border-bottom: 5px solid #000; }
+        .tpl-20 { text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Pembuat Dokumen PDF</h2>
-        
-        <div class="form-group">
-            <label for="judul">Judul Dokumen</label>
-            <input type="text" id="judul" placeholder="Contoh: Laporan Kegiatan Bulanan">
+    <div class="app-layout">
+        <div class="editor-card">
+            <h3>Editor & Layar Kontrol</h3>
+            
+            <div class="form-group">
+                <label for="template-select">Pilih Struktur Template</label>
+                <select id="template-select">
+                    <option value="tpl-1">1. Sidebar Two-Column (CV / Laporan)</option>
+                    <option value="tpl-2">2. Sertifikat / Piagam Bingkai Emas</option>
+                    <option value="tpl-3">3. Header Banner Biru (Invoice/Faktur)</option>
+                    <option value="tpl-4">4. Koran 2 Kolom (Newspaper Grid)</option>
+                    <option value="tpl-5">5. Dark Neon Cyberpunk</option>
+                    <option value="tpl-6">6. Modern Floating Card</option>
+                    <option value="tpl-7">7. Top Pink Curved Banner</option>
+                    <option value="tpl-8">8. Kop Surat Resmi Instansi</option>
+                    <option value="tpl-9">9. Aksen Garis Kiri Hijau</option>
+                    <option value="tpl-10">10. Format Struk / Receipt Kasir</option>
+                    <option value="tpl-11">11. Undangan / Sertifikat Soft Pink</option>
+                    <option value="tpl-12">12. Dark Developer Terminal</option>
+                    <option value="tpl-13">13. Diagonal Two-Tone Split</option>
+                    <option value="tpl-14">14. Sampul Majalah / Bold Cover</option>
+                    <option value="tpl-15">15. Laporan Bisnis dengan Badge Status</option>
+                    <option value="tpl-16">16. Vintage Kertas Klasik</option>
+                    <option value="tpl-17">17. Frame Tiga Warna Aksen</option>
+                    <option value="tpl-18">18. Compact Resume Layout</option>
+                    <option value="tpl-19">19. Swiss Clean Graphic Design</option>
+                    <option value="tpl-20">20. Centered Watermark Layout</option>
+                </select>
+            </div>
+
+            <div class="editor-section">
+                <h4>Editor Gambar / Logo</h4>
+                
+                <div class="form-group">
+                    <label for="image-input">Upload Gambar</label>
+                    <input type="file" id="image-input" accept="image/*">
+                </div>
+
+                <div id="image-controls" style="display: none;">
+                    <div class="form-group">
+                        <label>Bentuk Gambar (Preset Shape)</label>
+                        <div class="btn-group">
+                            <button id="btn-square">Persegi</button>
+                            <button id="btn-rounded">Membulat</button>
+                            <button id="btn-circle">Lingkaran</button>
+                        </div>
+                    </div>
+
+                    <div class="row-2">
+                        <div class="form-group">
+                            <label for="img-width">Lebar (px)</label>
+                            <input type="number" id="img-width" value="150">
+                        </div>
+                        <div class="form-group">
+                            <label for="img-height">Tinggi (px)</label>
+                            <input type="number" id="img-height" value="150">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="img-radius">Border Radius / Lengkungan (%)</label>
+                        <input type="range" id="img-radius" min="0" max="50" value="0">
+                    </div>
+
+                    <div class="row-2">
+                        <div class="form-group">
+                            <label for="img-rotate">Rotasi (°)</label>
+                            <input type="range" id="img-rotate" min="0" max="360" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="img-opacity">Transparansi</label>
+                            <input type="range" id="img-opacity" min="0.1" max="1" step="0.1" value="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="img-fit">Mode Penyesuaian (Object Fit)</label>
+                        <select id="img-fit">
+                            <option value="cover">Cover (Isi Penuh)</option>
+                            <option value="contain">Contain (Proporsional Utuh)</option>
+                            <option value="fill">Fill (Rentangkan)</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="drag-info">
+                <strong>Tips Editor Interaktif:</strong> Drag tengah gambar untuk menggeser. Drag titik putih di sudut untuk memperbesar/memperkecil.
+            </div>
+
+            <div class="form-group">
+                <label for="judul">Judul Utama</label>
+                <input type="text" id="judul" value="Laporan Dokumen Resmi">
+            </div>
+
+            <div class="form-group">
+                <label for="penulis">Nama / Sub-Judul</label>
+                <input type="text" id="penulis" value="Dibuat oleh: Tim Administrasi">
+            </div>
+
+            <div class="form-group">
+                <label for="isi">Isi Konten</label>
+                <textarea id="isi" rows="5">Tuliskan isi paragraf utama dokumen Anda di sini. Konten ini akan langsung diperbarui secara live di tampilan preview sesuai dengan struktur template yang Anda pilih.</textarea>
+            </div>
+
+            <button id="btn-download" style="background-color: #10b981;">Download PDF</button>
         </div>
 
-        <div class="form-group">
-            <label for="penulis">Nama Pembuat / Penulis</label>
-            <input type="text" id="penulis" placeholder="Contoh: Budi Santoso">
-        </div>
+        <div class="preview-card">
+            <h3>Live Preview Canvas (A4)</h3>
+            
+            <div id="pdf-canvas" class="pdf-canvas tpl-1">
+                
+                <!-- CONTAINER INTERAKTIF GAMBAR -->
+                <div id="drag-box" class="draggable-img" style="display: none;">
+                    
+                    <!-- Quick Bar Editor Melayang -->
+                    <div class="image-quick-bar" id="quick-bar">
+                        <button id="qb-shape">Bentuk</button>
+                        <button id="qb-delete" style="background:#ef4444;">Hapus</button>
+                    </div>
 
-        <div class="form-group">
-            <label for="isi">Isi Konten Dokumen</label>
-            <textarea id="isi" rows="6" placeholder="Tuliskan isi laporan atau dokumen Anda di sini..."></textarea>
-        </div>
+                    <!-- Gambar Utama -->
+                    <img id="pv-img" src="" alt="Uploaded Element">
 
-        <button onclick="generatePDF()">Cetak & Download PDF</button>
-    </div>
+                    <!-- Handles Sudut Resize -->
+                    <div class="handle handle-tl" data-handle="tl"></div>
+                    <div class="handle handle-tr" data-handle="tr"></div>
+                    <div class="handle handle-bl" data-handle="bl"></div>
+                    <div class="handle handle-br" data-handle="br"></div>
+                </div>
 
-    <!-- Layout/Template HTML yang diubah menjadi PDF -->
-    <div id="pdf-template">
-        <h1 id="out-judul"></h1>
-        <div class="meta">
-            <strong>Penulis:</strong> <span id="out-penulis"></span> | 
-            <strong>Tanggal:</strong> <span id="out-tanggal"></span>
+                <div id="dynamic-content"></div>
+            </div>
         </div>
-        <div class="content" id="out-isi"></div>
     </div>
 
     <script>
-        function generatePDF() {
-            // 1. Ambil nilai input
-            const judul = document.getElementById('judul').value || 'Dokumen_Tanpa_Judul';
-            const penulis = document.getElementById('penulis').value || 'Anonim';
-            const isi = document.getElementById('isi').value || 'Tidak ada konten.';
-            const tanggal = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+        // @ts-nocheck
+        let currentTemplate = 'tpl-1';
 
-            // 2. Tampilkan nilai ke template PDF
-            document.getElementById('out-judul').innerText = judul;
-            document.getElementById('out-penulis').innerText = penulis;
-            document.getElementById('out-tanggal').innerText = tanggal;
-            document.getElementById('out-isi').innerText = isi;
+        /**
+         * @param {Event} evt
+         */
+        function loadImage(evt) {
+            const input = evt ? evt.target : null;
+            if (input && input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('pv-img');
+                    if (img && e && e.target) {
+                        img.src = e.target.result;
+                    }
+                    document.getElementById('drag-box').style.display = 'block';
+                    document.getElementById('image-controls').style.display = 'block';
+                    updateImageStyle();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-            // 3. Render PDF menggunakan html2pdf.js
-            const element = document.getElementById('pdf-template');
-            element.style.display = 'block'; // Tampilkan sementara agar dapat dibaca script
+        /**
+         * @param {string} shapeType
+         */
+        function setShape(shapeType) {
+            const radiusInput = document.getElementById('img-radius');
+            if (shapeType === 'square') radiusInput.value = '0';
+            if (shapeType === 'rounded') radiusInput.value = '15';
+            if (shapeType === 'circle') radiusInput.value = '50';
+            updateImageStyle();
+        }
+
+        function updateImageStyle() {
+            const dragBox = document.getElementById('drag-box');
+            const img = document.getElementById('pv-img');
+
+            const width = document.getElementById('img-width').value || '150';
+            const height = document.getElementById('img-height').value || '150';
+            const radius = document.getElementById('img-radius').value || '0';
+            const rotate = document.getElementById('img-rotate').value || '0';
+            const opacity = document.getElementById('img-opacity').value || '1';
+            const fit = document.getElementById('img-fit').value || 'cover';
+
+            dragBox.style.width = width + 'px';
+            dragBox.style.height = height + 'px';
+            dragBox.style.transform = `rotate(${rotate}deg)`;
+            dragBox.style.opacity = opacity;
+
+            img.style.borderRadius = radius + '%';
+            img.style.objectFit = fit;
+        }
+
+        // ==========================================
+        // SISTEM DRAG (GESER) & RESIZE (UBAH UKURAN)
+        // ==========================================
+        const dragBox = document.getElementById("drag-box");
+        let isMoving = false;
+        let isResizing = false;
+        let activeHandle = '';
+        
+        let startX = 0, startY = 0;
+        let initialLeft = 0, initialTop = 0;
+        let initialWidth = 0, initialHeight = 0;
+
+        dragBox.addEventListener("pointerdown", (evt) => {
+            const target = evt.target;
+            
+            // 1. Jika menekan Handle Sudut (Resize)
+            if (target.classList.contains('handle')) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                isResizing = true;
+                activeHandle = target.getAttribute('data-handle');
+                startX = evt.clientX;
+                startY = evt.clientY;
+                initialWidth = dragBox.offsetWidth;
+                initialHeight = dragBox.offsetHeight;
+                initialLeft = dragBox.offsetLeft;
+                initialTop = dragBox.offsetTop;
+
+                document.addEventListener("pointermove", onPointerMove);
+                document.addEventListener("pointerup", onPointerUp);
+                return;
+            }
+
+            // 2. Jika menekan area Tombol Quick Bar (Abaikan drag)
+            if (target.closest('.image-quick-bar')) {
+                return;
+            }
+
+            // 3. Jika menekan Gambar/Box Utama (Move / Geser)
+            evt.preventDefault();
+            isMoving = true;
+            startX = evt.clientX;
+            startY = evt.clientY;
+            initialLeft = dragBox.offsetLeft;
+            initialTop = dragBox.offsetTop;
+
+            document.addEventListener("pointermove", onPointerMove);
+            document.addEventListener("pointerup", onPointerUp);
+        });
+
+        /**
+         * @param {PointerEvent} evt
+         */
+        function onPointerMove(evt) {
+            if (isMoving) {
+                const dx = evt.clientX - startX;
+                const dy = evt.clientY - startY;
+                dragBox.style.left = (initialLeft + dx) + "px";
+                dragBox.style.top = (initialTop + dy) + "px";
+            } else if (isResizing) {
+                const dx = evt.clientX - startX;
+                const dy = evt.clientY - startY;
+
+                let newWidth = initialWidth;
+                let newHeight = initialHeight;
+                let newLeft = initialLeft;
+                let newTop = initialTop;
+
+                if (activeHandle === 'br') {
+                    newWidth = initialWidth + dx;
+                    newHeight = initialHeight + dy;
+                } else if (activeHandle === 'bl') {
+                    newWidth = initialWidth - dx;
+                    newHeight = initialHeight + dy;
+                    newLeft = initialLeft + dx;
+                } else if (activeHandle === 'tr') {
+                    newWidth = initialWidth + dx;
+                    newHeight = initialHeight - dy;
+                    newTop = initialTop + dy;
+                } else if (activeHandle === 'tl') {
+                    newWidth = initialWidth - dx;
+                    newHeight = initialHeight - dy;
+                    newLeft = initialLeft + dx;
+                    newTop = initialTop + dy;
+                }
+
+                // Minimal ukuran 30x30px
+                if (newWidth > 30) {
+                    dragBox.style.width = newWidth + "px";
+                    if (activeHandle === 'tl' || activeHandle === 'bl') dragBox.style.left = newLeft + "px";
+                    document.getElementById('img-width').value = Math.round(newWidth);
+                }
+                if (newHeight > 30) {
+                    dragBox.style.height = newHeight + "px";
+                    if (activeHandle === 'tl' || activeHandle === 'tr') dragBox.style.top = newTop + "px";
+                    document.getElementById('img-height').value = Math.round(newHeight);
+                }
+            }
+        }
+
+        function onPointerUp() {
+            isMoving = false;
+            isResizing = false;
+            document.removeEventListener("pointermove", onPointerMove);
+            document.removeEventListener("pointerup", onPointerUp);
+        }
+
+        function updateText() {
+            const judul = document.getElementById('judul').value;
+            const penulis = document.getElementById('penulis').value;
+            const isi = document.getElementById('isi').value;
+            const contentDiv = document.getElementById('dynamic-content');
+
+            if (currentTemplate === 'tpl-1') {
+                contentDiv.innerHTML = `
+                    <div class="side"><h2>${judul}</h2><p>${penulis}</p></div>
+                    <div class="main"><p>${isi}</p></div>`;
+            } else if (currentTemplate === 'tpl-3') {
+                contentDiv.innerHTML = `
+                    <div class="header-bar"><h1>${judul}</h1><p>${penulis}</p></div>
+                    <div><p>${isi}</p></div>`;
+            } else if (currentTemplate === 'tpl-4') {
+                contentDiv.innerHTML = `
+                    <h1>${judul}</h1><h4>${penulis}</h4><hr>
+                    <div class="content-grid"><p>${isi}</p></div>`;
+            } else if (currentTemplate === 'tpl-6') {
+                contentDiv.innerHTML = `
+                    <div class="card-box"><h1>${judul}</h1><h3>${penulis}</h3><p>${isi}</p></div>`;
+            } else if (currentTemplate === 'tpl-8') {
+                contentDiv.innerHTML = `
+                    <div class="kop"><h2>KOP SURAT RESMI</h2><p>${penulis}</p></div>
+                    <h3>${judul}</h3><p>${isi}</p>`;
+            } else {
+                contentDiv.innerHTML = `
+                    <h1>${judul}</h1><h3>${penulis}</h3><hr><p>${isi}</p>`;
+            }
+        }
+
+        function changeTemplate() {
+            const select = document.getElementById('template-select');
+            currentTemplate = select.value;
+            document.getElementById('pdf-canvas').className = 'pdf-canvas ' + currentTemplate;
+            updateText();
+        }
+
+        function downloadPDF() {
+            const dragElement = document.getElementById('drag-box');
+            const handles = document.querySelectorAll('.handle');
+            const quickBar = document.getElementById('quick-bar');
+
+            // Sembunyikan garis border, handle, dan quickbar saat ekspor PDF
+            dragElement.style.border = 'none';
+            quickBar.style.display = 'none';
+            handles.forEach(h => h.style.display = 'none');
+
+            const element = document.getElementById('pdf-canvas');
+            const judul = document.getElementById('judul').value || 'dokumen';
 
             const opt = {
-                margin:       15,
+                margin:       0,
                 filename:     judul.toLowerCase().replace(/[^a-z0-9]/g, '_') + '.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
+                html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
+            // @ts-ignore
             html2pdf().set(opt).from(element).save().then(() => {
-                element.style.display = 'none'; // Sembunyikan kembali setelah selesai
+                dragElement.style.border = '2px dashed #2563eb';
+                quickBar.style.display = 'flex';
+                handles.forEach(h => h.style.display = 'block');
             });
         }
+
+        // Quick bar actions
+        document.getElementById('qb-shape').addEventListener('click', () => {
+            const currentRadius = document.getElementById('img-radius').value;
+            if (currentRadius === '0') setShape('rounded');
+            else if (currentRadius === '15') setShape('circle');
+            else setShape('square');
+        });
+
+        document.getElementById('qb-delete').addEventListener('click', () => {
+            document.getElementById('drag-box').style.display = 'none';
+            document.getElementById('image-controls').style.display = 'none';
+            document.getElementById('image-input').value = '';
+        });
+
+        // Event Listener Binding
+        document.getElementById('image-input').addEventListener('change', loadImage);
+        document.getElementById('btn-square').addEventListener('click', () => setShape('square'));
+        document.getElementById('btn-rounded').addEventListener('click', () => setShape('rounded'));
+        document.getElementById('btn-circle').addEventListener('click', () => setShape('circle'));
+        document.getElementById('template-select').addEventListener('change', changeTemplate);
+        document.getElementById('btn-download').addEventListener('click', downloadPDF);
+
+        document.getElementById('img-width').addEventListener('input', updateImageStyle);
+        document.getElementById('img-height').addEventListener('input', updateImageStyle);
+        document.getElementById('img-radius').addEventListener('input', updateImageStyle);
+        document.getElementById('img-rotate').addEventListener('input', updateImageStyle);
+        document.getElementById('img-opacity').addEventListener('input', updateImageStyle);
+        document.getElementById('img-fit').addEventListener('change', updateImageStyle);
+
+        document.getElementById('judul').addEventListener('input', updateText);
+        document.getElementById('penulis').addEventListener('input', updateText);
+        document.getElementById('isi').addEventListener('input', updateText);
+
+        updateText();
     </script>
 </body>
 </html>
