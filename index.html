@@ -1,795 +1,170 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>DevHub v9.1 · Roadmap prompt</title>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DevHub v3 · Roadmap perbaikan (rev 2)</title>
+<meta name="color-scheme" content="light dark">
 <style>
-:root{--bg:#f2f5f4;--sf:#fff;--tx:#10231f;--mu:#566660;--bd:#d9e2df;--ac:#0f766e;--ac2:#e0f2ef;--nx:#10231f;--nt:#eaf5f2;--ok:#15803d;--wr:#b45309;color-scheme:light}
-@media(prefers-color-scheme:dark){:root{--bg:#0c1513;--sf:#142320;--tx:#e6f0ed;--mu:#93a8a1;--bd:#25382f;--ac:#2dd4bf;--ac2:#12332e;--nx:#1b3a34;--nt:#eaf5f2;--ok:#4ade80;--wr:#fbbf24;color-scheme:dark}}
-*{box-sizing:border-box}html{scroll-padding-top:5rem}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:env(safe-area-inset-top) 0 calc(4.5rem + env(safe-area-inset-bottom))}
-.w{max-width:72rem;margin:0 auto;padding:0 1rem}
-header{position:sticky;top:0;z-index:5;background:var(--sf);border-bottom:1px solid var(--bd);padding-top:env(safe-area-inset-top)}
-header .w{display:flex;align-items:center;gap:.75rem;min-height:3.25rem}
-header b{font-size:1.05rem}#pg{color:var(--mu);font-size:.875rem;margin-right:auto}
-.bar{height:3px;background:var(--bd)}.bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--sf);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom);z-index:6}
-nav button{flex:1;min-height:3.25rem;border:0;background:none;color:var(--mu);font:inherit;font-size:.875rem;cursor:pointer}
-nav button[aria-current=page]{color:var(--ac);font-weight:700;box-shadow:inset 0 3px var(--ac)}
-@media(min-width:640px){nav{position:static;border:0;background:none;padding:0}nav button{flex:none;min-height:2.75rem;padding:0 .9rem;box-shadow:none!important}nav button[aria-current=page]{border-bottom:3px solid var(--ac)}body{padding-bottom:3rem}}
-main{padding-top:1rem;padding-bottom:1rem}
-.g{display:grid;gap:1rem}@media(min-width:1024px){.g{grid-template-columns:17rem 1fr;align-items:start}.side{position:sticky;top:5rem}}
-.side{display:none}@media(min-width:1024px){.side{display:block}}
-h2{font-size:1.15rem;margin:1.25rem 0 .5rem}h3{font-size:1rem;margin:.1rem 0}small,.mu{color:var(--mu)}
-.box{background:var(--sf);border:1px solid var(--bd);border-radius:.75rem;padding:1rem}
-.nx{background:var(--nx);color:var(--nt);border-color:transparent}.nx .mu,.nx small{color:#a9c7c0}
+:root{--bg:#f3f5f9;--card:#fff;--ink:#15202d;--mut:#556476;--line:#d8dfe8;--acc:#2c5bd4;--on:#fff;--ok:#1b7a4b;--okbg:#e3f4ea;--warn:#9a5a00;--code:#eef2f7}
+@media(prefers-color-scheme:dark){:root{--bg:#0e131a;--card:#161d27;--ink:#e7ecf2;--mut:#9aa8b8;--line:#263241;--acc:#7b9cff;--on:#0b1220;--ok:#52c48c;--okbg:#14291f;--warn:#e3a54c;--code:#1c2531}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+main{max-width:720px;margin:0 auto}
+h1{font-size:1.45rem;line-height:1.2;margin:8px 0 4px;letter-spacing:-.02em}
+h2{font-size:1.05rem;margin:24px 0 8px}
+p{margin:0 0 8px}.mut{color:var(--mut);font-size:.9rem}
 button,summary{font:inherit}
-.btn{min-height:2.75rem;padding:0 1rem;border-radius:.6rem;border:1px solid var(--bd);background:var(--sf);color:var(--tx);cursor:pointer;font-weight:600}
-.btn.p{background:var(--ac);border-color:var(--ac);color:#fff}.dark .btn.p,.nx .btn.p{color:#04201c;background:#5eead4;border-color:#5eead4}.btn.big{width:100%;min-height:3.25rem;font-size:1.05rem}
-.row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}.row .btn{flex:1 1 9rem}
-:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
-.c{background:var(--sf);border:1px solid var(--bd);border-radius:.75rem;margin:.5rem 0;overflow:hidden}.c.d{opacity:.72}
-.h{display:flex;justify-content:space-between;gap:.5rem;padding:.8rem 1rem;cursor:pointer;min-height:3rem}
-.cb{padding:0 1rem 1rem}
-.bg{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}.bg span{font-size:.75rem;border:1px solid var(--bd);border-radius:2rem;padding:.05rem .55rem;color:var(--mu)}
-.bg .hv{color:var(--wr);border-color:var(--wr)}.bg .ok{color:var(--ok);border-color:var(--ok)}
-label.s{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem 0;min-height:2.75rem;cursor:pointer}label.s input{width:1.35rem;height:1.35rem;margin-top:.1rem;flex:none;accent-color:var(--ac)}
-label.s.x span{text-decoration:line-through;color:var(--mu)}
-pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--bd);border-radius:.5rem;padding:.75rem;font:.8rem/1.5 ui-monospace,Menlo,Consolas,monospace;max-height:22rem;overflow:auto}
-details{margin:.5rem 0}summary{cursor:pointer;min-height:2.5rem;display:flex;align-items:center;font-weight:600}
-.f{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}.f .btn[aria-pressed=true]{background:var(--ac2);border-color:var(--ac);color:var(--ac)}
-input[type=search],.in{flex:1 1 12rem;min-height:2.75rem;border:1px solid var(--bd);border-radius:.6rem;padding:0 .75rem;background:var(--sf);color:var(--tx);font:inherit;width:100%}
-.fg{display:grid;gap:.6rem}@media(min-width:640px){.fg{grid-template-columns:1fr 1fr}}.fg label{font-size:.85rem;color:var(--mu)}
-.pb{height:.5rem;background:var(--bd);border-radius:1rem;overflow:hidden;margin:.25rem 0 .6rem}.pb i{display:block;height:100%;background:var(--ac)}
-#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(5rem + env(safe-area-inset-bottom));background:var(--tx);color:var(--bg);padding:.6rem 1rem;border-radius:.6rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90vw}#toast.on{opacity:1}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style></head><body>
-<header><div class="w"><b>DevHub v9.1</b><span id="pg"></span><nav id="tabs" aria-label="Bagian"></nav></div><div class="bar"><i id="bar"></i></div></header>
-<main class="w" id="app"></main><div id="toast" role="status"></div>
-<script type="text/plain" id="src">
-DEVHUB v9.1 - LANJUTAN (revisi: pemandu Gemini, memori Supabase+Vercel, perbaikan prompt)
-Satu orang, satu urutan, 7 akun Claude bergantian, dipandu Gemini. Claude menulis ke Supabase dan Vercel lewat konektor. Lanjutan dari v8 (semua prompt v8 harus sudah selesai). Isi sama dengan roadmap di index.html.
-Pembagian akun (saran, ganti akun SEBELUM jatah habis; jatah gratis reset berkala): prompt BERAT 1-2 per akun, prompt kursus 2-3 per akun. Roadmap menghitung saran akun otomatis.
-Nama file ini: devhub_prompts_v9.1.txt
+button{min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.pri{background:var(--acc);border-color:var(--acc);color:var(--on);font-weight:600}
+button:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:12px 0 4px}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+.tabs{display:flex;gap:4px;margin:16px 0;border-bottom:1px solid var(--line)}
+.tabs button{border:0;border-bottom:3px solid transparent;border-radius:0;background:none;min-height:44px;color:var(--mut)}
+.tabs button[aria-selected=true]{color:var(--ink);border-color:var(--acc);font-weight:600}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+label{display:block;font-size:.88rem;color:var(--mut);margin:8px 0 2px}
+input[type=text]{width:100%;min-height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.chk{display:flex;align-items:center;gap:10px;min-height:44px}
+.chk input{width:22px;height:22px;accent-color:var(--acc)}
+.item{background:var(--card);border:1px solid var(--line);border-left-width:5px;border-radius:14px;padding:16px;margin-bottom:12px}
+.item[data-s=next]{border-left-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.item[data-s=done]{border-left-color:var(--ok)}
+.item[data-s=wait]{opacity:.75}
+.head{display:flex;gap:12px;align-items:flex-start}
+.id{font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc);min-width:2.6em}
+.item[data-s=done] .id{color:var(--ok)}
+.t{font-weight:650;font-size:1.05rem;line-height:1.3}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.meta span{font-size:.8rem;padding:2px 10px;border-radius:99px;background:var(--code);color:var(--mut)}
+.meta .heavy{background:var(--warn);color:var(--bg);font-weight:600}
+.meta .ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.act{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.note{color:var(--warn);font-size:.88rem;margin-top:8px}
+details{margin-top:8px}
+summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--acc)}
+pre{background:var(--code);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font:.82rem/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;margin:8px 0;max-height:320px;overflow-y:auto}
+ul.s{padding-left:20px;margin:8px 0}
+#toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;text-align:center}
+#toast.on{opacity:1}
+[hidden]{display:none!important}
+@media(min-width:1024px){main{max-width:820px}h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<main>
+<h1>DevHub v3 · Roadmap perbaikan</h1>
+<p class="mut">7 prompt (N36-N42) untuk melengkapi DevHub v2. Satu chat Claude baru per prompt.</p>
+<div class="bar" role="progressbar" aria-label="Kemajuan" aria-valuemin="0" aria-valuemax="100"><i id="pb"></i></div>
+<p class="mut" id="pt"></p>
+
+<div class="tabs" role="tablist">
+<button role="tab" aria-selected="true" data-tab="rm">Roadmap</button>
+<button role="tab" aria-selected="false" data-tab="gm">Gemini</button>
+<button role="tab" aria-selected="false" data-tab="bt">Bantuan</button>
+</div>
+
+<section id="rm">
+<div class="box">
+<p><b>Sebelum mulai</b></p>
+<label class="chk"><input type="checkbox" id="pre"> N35 sudah selesai, atau sisanya sudah kuputuskan</label>
+<label for="v1">Nama project Supabase</label><input type="text" id="v1" autocomplete="off">
+<label for="v2">ID project Supabase</label><input type="text" id="v2" autocomplete="off">
+<label for="v3">Team Vercel (boleh kosong)</label><input type="text" id="v3" autocomplete="off">
+<p class="mut" style="margin-top:8px">Data ini hanya tersimpan di browser ini dan ikut tersalin ke prompt. Jangan isi sandi atau API key.</p>
+</div>
+<div id="list"></div>
+<h2>Ditunda dulu</h2>
+<ul class="s mut" id="defer"></ul>
+<p><button id="reset">Hapus semua centang</button></p>
+</section>
+
+<section id="gm" hidden>
+<div class="box"><p><b>1. Petunjuk untuk Gem</b></p><p class="mut">Tempel ke instruksi Gem baru, atau sebagai pesan pertama di chat Gemini.</p><div class="act"><button class="pri" data-c="gemini">Salin petunjuk</button></div></div>
+<div class="box"><p><b>2. Unggah file prompt</b></p><p class="mut">Unggah sebagai file pengetahuan atau lampiran.</p><div class="act"><button class="pri" id="dl">Unduh devhub_prompts_v3.txt</button></div></div>
+<div class="box"><p><b>3. Pesan pembuka</b></p><div class="act"><button class="pri" data-c="pembuka">Salin pesan pembuka</button></div></div>
+<div class="box"><p><b>Blok status</b></p><p class="mut">Tempel ke chat Gemini baru agar posisimu terbawa.</p><pre id="st"></pre><div class="act"><button data-c="status">Salin blok status</button></div></div>
+</section>
+
+<section id="bt" hidden>
+<div class="box"><b>Alur tiap prompt</b>
+<ol class="s"><li>Buka chat baru di Claude (akun sesuai saran).</li><li>Tekan Salin prompt dan tempel.</li><li>Balas ya bila Claude meminta persetujuan SQL, lalu ketuk Izinkan pada konektor.</li><li>Buka alamat situs dari Claude, uji di HP dan di layar lebar.</li><li>Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.</li></ol></div>
+<div class="box"><b>Akun saran</b><p class="mut">Satu prompt berat per akun, ditambah prompt ringan sampai jatah terpakai. Ganti akun sebelum jatah habis; di akun baru hubungkan Supabase dan Vercel, uji daftar project, lalu pakai Prompt lanjut.</p></div>
+<div id="mp"></div>
+</section>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
 
-== PETUNJUK UNTUK GEMINI ==
-PERAN: Kamu pemandu proyek. Pengguna membangun DevHub v2 dengan menjalankan 35 prompt (N01-N35) di chat Claude, di banyak akun Claude bergantian. Kamu TIDAK menulis kode situs dan TIDAK menjalankan apa pun. Tugasmu: menuntun urutan, akun, tes, dan penanganan masalah, selangkah demi selangkah.
-SUMBER KEBENARAN: file ini. Bila ingatanmu bertentangan dengan file, ikuti file. Jangan mengarang isi prompt.
-PEMBUKA (sekali, di awal): baca seluruh file, ringkas 5 baris, lalu tanyakan SATU hal: "Sudah sampai prompt mana dan akun Claude mana yang aktif?". Bila pengguna menempel blok STATUS, pakai itu.
-GAYA: bahasa Indonesia, ramah, singkat, nyaman di layar HP (maks sekitar 8 baris per balasan). Satu langkah per giliran, tunggu konfirmasi. Jangan membanjiri semua langkah sekaligus.
-SETIAP PROMPT, lakukan urutan ini:
-1. Umumkan: ID, judul, tahap, jenis (berat/ringan/kursus), apakah ada deploy, akun saran. Cek prasyarat; bila belum terpenuhi, jelaskan dan arahkan ke prompt yang benar. (Prompt kursus N20-N34 hanya butuh N19 dan boleh dikerjakan dalam urutan apa pun.)
-2. Cek akun: jatah akun aktif cukup untuk tugas ini? Bila prompt BERAT, sarankan akun dengan jatah penuh. Bila akun baru: jalankan CEK GANTI AKUN di bawah.
-3. Beri teks prompt lengkap dalam SATU blok kode agar mudah disalin: KONTRAK (plus KONTRAK KURSUS bila jenis kursus), lalu baris "TUGAS [ID] judul", lalu isi prompt. Ganti <NAMA-DEV>, <ID-DEV>, <TEAM-VERCEL>, <EMAIL-PENGIRIM> dengan data pengguna. Bila data belum ada, minta dulu. Alternatif: pengguna memakai tombol Salin prompt di roadmap.
-4. Tuntun bagian "Langkah:" satu per satu: chat BARU di Claude, tempel, setujui SQL dan konektor, buka alamat situs, jalankan tiap TES.
-5. Minta pengguna menempel LAPORAN AKHIR Claude (maks 8 baris, baris terakhir "STATUS: ..."). Cocokkan dengan yang diharapkan. Kamu tidak bisa melihat chat Claude; hanya yang ditempel pengguna.
-6. Gagal: minta pesan error persis atau tangkapan layar, cari penyebab, lalu tulis pesan koreksi singkat untuk ditempel ke chat Claude yang SAMA. Rujuk bagian MASALAH UMUM. Jangan menyuruh mengulang dari awal.
-7. Lolos: minta pengguna mencentang kartu di roadmap, catat "N## selesai", sebutkan prompt berikutnya dan akunnya.
-CEK GANTI AKUN: (a) konektor Supabase dan Vercel terhubung di akun itu, (b) uji: "daftar project Supabase dan Vercel" berhasil, (c) buka chat BARU. Bila tugas sebelumnya belum selesai di akun lama, beri PROMPT LANJUT: semua teks prompt yang sama + KONTRAK + kalimat "LANJUT: tugas ini sudah sebagian dikerjakan di chat atau akun sebelumnya. Baca memori sesuai [MEMORI], cek apa yang sudah ada, selesaikan HANYA bagian yang belum, jangan ulang migrasi yang sudah ada." (roadmap punya tombol Salin prompt lanjut). Chat Claude baru TIDAK mengingat apa pun; ingatan proyek ada di Supabase (dev_prompt_log, dev_notes) dan Vercel (meta deployment dan assets/MEMORY.md) sesuai [MEMORI].
-PELACAK STATUS: simpan di percakapan: prompt selesai, prompt berikutnya, akun aktif dan jumlah prompt yang sudah dijalankan di akun itu, masalah terbuka. Akhiri balasan penting dengan satu baris "STATUS: selesai N01-N0x | berikutnya N0y | akun X". Setelah tiap 5 prompt, atau bila diminta, cetak blok "STATUS DEVHUB v9.1" agar bisa ditempel ke chat Gemini baru.
-KEAMANAN: jangan pernah meminta atau menampung App Password, API key, service_role, atau password akun. Bila pengguna menempelkannya, ingatkan segera untuk menggantinya (rotate). Rahasia hanya diisi pengguna di dashboard Supabase Secrets.
-BATAS: jangan menyuruh melompati prasyarat, mengubah KONTRAK, memakai AI selain Groq di /ai, atau menjalankan perintah merusak (DROP, TRUNCATE, DELETE tanpa WHERE, hapus project). Bila Claude menolak atau terpotong, bantu dengan "lanjut" atau rollback sesuai MASALAH UMUM.
-RILIS: setelah N34 jalankan N35 (audit). Bila ada temuan, tuntun perbaikannya sebelum menyatakan selesai.
-
-== PERSIAPAN ==
-Catatan: S1-S5 berasal dari v8 (project Supabase dev, project Vercel "devhub", konektor Supabase dan Vercel terhubung, secret yang sudah ada seperti GROQ_API_KEY) dan dianggap SUDAH SELESAI. Bila ragu, N01 meminta Claude memeriksa kondisi v8.
-
-S6 Siapkan Gemini sebagai pemandu [SEKALI | WAJIB | Sebelum N01]
-  - Buka gemini.google.com. Buat Gem baru (atau chat baru). Instruksi Gem = tombol Salin petunjuk di tab Gemini pada roadmap. Tanpa Gem, tempel petunjuk itu sebagai pesan pertama.
-  - Unggah file devhub_prompts_v9.1.txt (tombol Unduh di tab Gemini) sebagai file pengetahuan atau lampiran.
-  - Kirim pesan pembuka dari roadmap (tombol Salin pesan pembuka). Gemini merangkum dan menanyakan posisimu.
-  - Beri label akun Claude A sampai G. Jangan tulis email atau password akun di chat.
-S7 SMTP Gmail untuk email kode verifikasi [SEKALI | WAJIB | Sebelum N03]
-  - Login ke akun Google <EMAIL-PENGIRIM> > Keamanan > aktifkan Verifikasi 2 Langkah.
-  - Keamanan > Sandi aplikasi (App passwords) > buat nama devhub > salin 16 karakter (tampil sekali). Simpan di catatan HP, JANGAN tempel ke chat Claude.
-  - Supabase > Authentication > Emails > SMTP Settings (nama menu bisa berbeda): aktifkan Custom SMTP. Host smtp.gmail.com, Port 465, Username <EMAIL-PENGIRIM>, Password = sandi aplikasi, Sender email <EMAIL-PENGIRIM>, Sender name DevHub. Simpan.
-  - Authentication > Rate Limits: naikkan batas email per jam bila ada (Gmail pribadi sekitar 500 email per hari).
-  - Template email dan Confirm email diatur saat N03 (Claude memberi langkahnya).
-
-S8 TURN untuk telepon suara [SEKALI | OPSIONAL | Sebelum N12]
-  - Tanpa TURN, telepon tetap jalan di sebagian besar jaringan. Di jaringan tertentu (seluler tertentu atau kantor) suara bisa tidak tembus; saat itu baru perlu TURN.
-  - Bila perlu: daftar layanan TURN gratis (mis. metered.ca, cek batas gratis terbaru), salin API key. Simpan sebagai secret TURN_API_KEY di Supabase > Edge Functions > Secrets saat Claude memintanya. Jangan tempel key ke chat.
-
-S9 Pasang roadmap di GitHub Pages [SEKALI | OPSIONAL | Kapan saja]
-  - Roadmap (index.html) sudah berisi seluruh prompt dan bisa dibuka langsung dari file di HP. Bila ingin alamat tetap: buka github.com > repository "web" (etgn.github.io/web) > Add file > Upload files, unggah index.html, lalu Commit changes.
-  - Tunggu 1-2 menit, buka alamat Pages di browser: roadmap harus tampil.
-  - Kemajuan (centang) tersimpan di browser per perangkat. Gunakan satu browser yang sama.
-
-== ALUR TIAP PROMPT ==
-1. Buka chat BARU di Claude (kartu Berikutnya di Roadmap, akun sesuai saran Gemini).
-2. Tekan Salin prompt dan tempel. KONTRAK sudah ikut di dalamnya.
-3. Bila Claude menampilkan ringkasan SQL, balas ya. Ketuk Izinkan pada permintaan konektor.
-4. Claude men-deploy dan memberi alamat. Buka di browser HP dan lakukan TES di kartu (juga di layar lebih lebar).
-5. Gagal: tempel pesan error atau deskripsi masalah di chat yang sama. Lolos: centang kartu.
-6. Tempel laporan akhir Claude ke Gemini, lalu lanjut ke prompt berikutnya di chat baru.
-
-== MASALAH UMUM ==
-- Claude terpotong atau berhenti: Ketik: lanjut
-- Batas pemakaian gratis habis: Ganti ke akun Claude lain SEBELUM habis (hubungkan Supabase dan Vercel lagi, uji daftar project). Di chat baru tempel Prompt lanjut (tombol di roadmap atau dari Gemini): berisi KONTRAK + prompt + perintah membaca memori.
-- Halaman lama hilang setelah deploy: Claude lupa menyertakan file lama. Minta: rollback ke deployment sebelumnya, lalu ulangi dan tekankan aturan Vercel di KONTRAK.
-- Tampilan rusak di HP setelah rombak: tempel tangkapan layar atau deskripsi di chat yang sama, atau minta rollback.
-- Email kode tidak masuk: cek folder spam, cek SMTP (S7), cek batas email per jam di Supabase.
-- Suara telepon tidak terdengar: cek izin mikrofon, coba jaringan lain, atau lakukan S8 (TURN).
-- Situs minta login Vercel: Matikan Deployment Protection untuk Production.
-- Konektor tidak muncul atau ditolak: Hubungkan ulang di Connectors dan uji lagi.
-- Perlu akun uji kedua dan ketiga: Pakai tab penyamaran dan browser lain di HP, email berbeda.
-
-== KONTRAK (ikut di setiap prompt) ==
-KONTRAK DEVHUB v9.1 (taati di semua tugas)
-Tugas saya = bagian TUGAS di bawah. Ubah hanya file yang disebut di tugas; file lain dipertahankan persis.
-
-[PROYEK] DevHub v2: situs komunitas developer gratis. Statis TANPA build: HTML + CSS + JavaScript (ES module). Pustaka lewat CDN dengan versi dipatok (rilis berumur lebih dari 14 hari). Backend: Supabase (Auth, Postgres + RLS, Storage, Realtime, Edge Functions). Hosting: Vercel (satu project "devhub"). Bahasa antarmuka Indonesia.
-
-[DESAIN] Modern, bersih, rapi, tidak membingungkan.
-- Satu sistem desain dari assets/app.css (token warna, jarak, radius, bayangan, tipografi; gelap/terang). Pakai komponen .card .btn .input .chip .badge .tabs .modal .drawer .empty .skeleton .avatar; hindari gaya inline berantakan.
-- Adaptif per ukuran layar, mobile-first: di bawah 640px = bar tab bawah + satu kolom; 640-1023px = rail ikon + dua kolom; 1024px ke atas = sidebar penuh + konten + panel samping bila perlu. Tata letak benar-benar berbeda per kelas layar, bukan sekadar mengecil.
-- Satu aksi utama per layar, judul jelas, keadaan kosong yang ramah, skeleton saat memuat, pesan error manusiawi.
-- Target sentuh min 44px, kontras cukup, fokus terlihat, hormati prefers-reduced-motion. Ikon SVG inline, bukan emoji.
-
-[ANTARMUKA TETAP]
-- assets/supabase.js mengekspor sb dan getUser(). assets/ui.js mengekspor mountNav(), toast(msg), esc(teks); boleh menambah ekspor baru, jangan menghapus. Halaman memakai <script type="module"> dan import dari /assets/.
-- Tabel lama dipertahankan. Migrasi hanya MENAMBAH (tabel baru, ALTER ADD); data lama tidak boleh hilang (pindahkan dengan INSERT ... SELECT). Kolom pemilik: user_id default auth.uid(). Semua tabel: RLS aktif sejak dibuat dan policy jelas. Fungsi pembantu RLS: SECURITY DEFINER dengan search_path tetap, hindari rekursi policy.
-- Identitas: tiap akun punya username dan ID akun (user_code) unik untuk dicari orang lain.
-- AI: satu-satunya layanan AI adalah Groq, hanya untuk obrolan teks di /ai. AI tidak boleh dihubungkan ke runner kode, tools, atau fitur lain.
-- Email verifikasi lewat SMTP kustom yang sudah saya atur sendiri (pengirim <EMAIL-PENGIRIM>). Jangan pernah meminta atau menulis App Password atau API key di chat.
-
-[ATURAN SUPABASE] Project "<NAMA-DEV>" (id: <ID-DEV>) SAJA.
-- Jalankan SQL lewat apply_migration, nama bernomor melanjutkan migrasi terakhir (cek list_migrations), idempoten bila bisa. Tampilkan ringkasan SQL (maks 10 baris) dan tunggu saya menjawab "ya".
-- DILARANG: DROP, TRUNCATE, DELETE tanpa WHERE, membuat/menghapus project.
-- Setelah migrasi jalankan get_advisors (security) dan perbaiki peringatan RLS.
-- Di front-end hanya publishable/anon key. service_role dan rahasia lain JANGAN masuk file atau chat. Rahasia hanya di Edge Function lewat Supabase Secrets (saya isi di dashboard).
-- Edge Function: deploy_edge_function, verify_jwt true kecuali endpoint publik yang memverifikasi key sendiri.
-- Realtime untuk data privat: channel privat dengan policy pada realtime.messages, dan tabel yang dipantau punya RLS.
-- Memori proyek: wajib dibaca di awal dan ditulis di akhir tugas sesuai [MEMORI].
-
-[ATURAN VERCEL] Project "devhub" SAJA (team: <TEAM-VERCEL>; bila kosong, cari lewat list_teams).
-- Deploy = create_deployment, target production, framework null (statis).
-- Setiap deploy HARUS memuat SEMUA file yang sudah ada. Sebelum deploy: list_deployments (production terakhir), list_deployment_files, pertahankan file yang tidak kamu ubah dengan referensi sha dan size tanpa membaca isinya; baca isi hanya bila sha tidak tersedia. Ubah hanya file milik tugas.
-- Kelompokkan modul besar dalam sedikit file. Jangan mengubah env, domain, atau setting. Deploy gagal: baca log, perbaiki; bila perlu request_rollback.
-- Setiap deploy: isi meta dan perbarui assets/MEMORY.md sesuai [MEMORI] (pengecualian dari "ubah hanya file tugas").
-- Setelah deploy berikan alamat situs.
-
-[MEMORI] Ingatan proyek lintas chat dan akun. Wajib: chat Claude baru tidak mengingat apa pun.
-AWAL tugas (hemat, 3 langkah):
-1. execute_sql: SELECT prompt_id,status,summary,needs FROM dev_prompt_log ORDER BY started_at; SELECT module,note FROM dev_notes ORDER BY module;
-2. list_deployments (production terakhir), lalu get_deployment: baca meta devhub_memory dan devhub_done.
-3. list_deployment_files. Baca assets/MEMORY.md hanya bila perlu.
-Tabel belum ada (sebelum N01): lewati. Supabase dan Vercel berbeda: pakai yang lebih baru, catat selisih, lanjut. dev_prompt_log menandai tugas ini 'partial': lanjutkan dari bagian yang belum. Mulai tugas: upsert dev_prompt_log(prompt_id, title, status='started').
-AKHIR tugas:
-a. Supabase: upsert dev_prompt_log (status done/partial/failed, summary maks 8 baris, tables_added, files_changed, functions_added, needs, deployment_id, finished_at). dev_notes(module=<modul tugas>) maks 8 baris: UPDATE bila ada, INSERT bila tidak. Perbarui dev_notes module='_inti' (maks 20 baris: tabel, halaman, ekspor kunci, Edge Function, BUTUH dari tahap lain).
-b. Vercel (hanya tugas dengan deploy): create_deployment dengan meta {"devhub_prompt":"<ID>","devhub_done":"<ID selesai dipisah koma>","devhub_memory":"<ringkasan maks 1500 karakter>"} dan perbarui assets/MEMORY.md (maks 60 baris: halaman dan path, file modul dan ekspor, tabel, prompt selesai, BUTUH).
-c. Isi memori tanpa rahasia, tanpa data pengguna, tanpa email.
-Skema dev_prompt_log (dibuat di N01, RLS aktif TANPA policy untuk anon/authenticated karena hanya dibaca lewat konektor): prompt_id text primary key, title text, status text check in ('started','partial','done','failed'), summary text, tables_added text[], files_changed text[], functions_added text[], needs text, deployment_id text, started_at timestamptz default now(), finished_at timestamptz.
-
-[ATURAN JAWABAN]
-Kerjakan sendiri lewat konektor. Hemat token: jangan menulis ulang isi file di chat, jangan membaca ulang file yang tidak perlu. Jangan bertanya balik kecuali buntu: putuskan sesuai kontrak dan catat asumsi. Laporan akhir maks 8 baris, lalu satu baris terakhir persis: STATUS: <ID> <done|partial|failed> | berikutnya: <ID>.
-[AKHIR KONTRAK]
-
-== KONTRAK KURSUS (ikut di prompt kursus N20-N34, setelah KONTRAK) ==
-KONTRAK KURSUS (tambahan untuk prompt kursus)
-- Cek skema courses dan lessons (list_tables verbose), ikuti kolom yang ada (mis. title, isi, sort, course_id), baca judul pelajaran lama, dan pastikan ada kunci unik (course_id, sort) untuk upsert.
-- Tulis silabus lebih dulu, tampilkan, simpan ke dev_notes(module='kursus-<slug>'), lalu TUNGGU saya menjawab "setuju".
-- Lalu 4 pelajaran per migrasi data: INSERT ... ON CONFLICT DO UPDATE ke lessons (course_id dari slug; sort melanjutkan nomor terakhir). Berhenti tiap batch sampai saya mengetik "lanjut".
-- Tiap pelajaran 300-450 kata, bahasa Indonesia ramah pemula, urut dari dasar ke mahir, contoh kode sesuai tugas, bagian "Latihan" berisi 3 soal, dan 3 soal kuis pilihan ganda di kolom quiz jsonb: [{"q":"...","options":["..."],"answer":0,"why":"..."}] (answer = indeks mulai 0).
-- Bila baris kursus belum ada di courses, tambahkan dulu. Setelah batch pertama set courses.status = 'published'.
-- Setelah tiap batch: update dev_prompt_log status 'partial' (batch n/m dan nomor pelajaran terakhir); di akhir 'done'. Tidak ada deploy; hanya Supabase.
-[AKHIR KONTRAK KURSUS]
-
-== PROMPT ==
---- 1. [N01] Fondasi memori proyek | Tahap 6 · Desain dan Akun | prasyarat: S1-S5 (v8) dan S6 | berat: tidak | deploy: ya | jenis: bangun
-Awal: baca dev_notes dan daftar file deployment terakhir (belum ada memori v9.1: itu wajar). Periksa juga kondisi v8: tabel (list_tables), halaman, Edge Function.
-Pasang fondasi memori sesuai [MEMORI]. Tidak mengubah tampilan situs.
-- Migrasi: buat tabel dev_prompt_log (skema di [MEMORI]) dengan RLS aktif tanpa policy untuk anon/authenticated. Pastikan dev_notes(module, note) ada dan RLS aktif tanpa policy untuk anon/authenticated; bila ada policy longgar, ketatkan.
-- Isi dev_notes module='_inti' (maks 20 baris): ringkasan v8 yang kamu temukan (tabel, halaman, Edge Function, ekspor assets/supabase.js dan assets/ui.js, daftar NAV).
-- Isi dev_prompt_log untuk N01 (done).
-- Buat assets/MEMORY.md (maks 60 baris, tanpa rahasia): isi sama dengan _inti plus daftar prompt selesai.
-- Deploy dengan meta sesuai [MEMORI]; semua file lain dipertahankan persis.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP: situs lama tetap tampil dan berfungsi.
-  - Tes: Laporan Claude menyebut tabel dev_prompt_log dan dev_notes, RLS aktif, dan ringkasan v8 yang masuk akal.
-  - Tes: Di Supabase Table Editor, dev_prompt_log berisi satu baris N01 berstatus done.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 2. [N02] Sistem desain dan kerangka responsif | Tahap 6 · Desain dan Akun | prasyarat: N01 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Rombak fondasi tampilan SELURUH situs. File yang boleh diubah: assets/app.css, assets/ui.js, index.html, 404.html, tentang/, vercel.json.
-- assets/app.css baru: token (warna gelap/terang dengan satu aksen konsisten, jarak kelipatan 4px, radius, bayangan, tipografi system font), reset, kerangka halaman adaptif, komponen: .card .btn(.primary .ghost .danger) .input .select .chip .badge .tabs .modal .drawer .toast .empty .skeleton .avatar .tooltip .table .grid. Breakpoint 640 dan 1024.
-- assets/ui.js: pertahankan mountNav(), toast(), esc(); tambah ekspor icon(name) (SVG inline), avatar(profile) (inisial berwarna bila tanpa foto), modal(), confirmDialog(), emptyState(), skeleton(), initTheme(). mountNav merender: bar tab bawah di HP (4 item + Lainnya), rail ikon di tablet, sidebar penuh bergrup di desktop, ditambah topbar ringkas (cari, tema, akun). Daftar NAV tetap satu tempat dan dikelompokkan: Jelajah (Beranda, Belajar, Tools), Bikin (Playground, Proyek, Situs, API), Komunitas (Feed, Chat, AI).
-- index.html baru: hero singkat dengan satu ajakan utama, grid fitur per kelompok, bagian "Mulai dari sini" 3 langkah, cuplikan konten dari Supabase bila ada, footer rapi. 404.html dan /tentang dirapikan.
-- Halaman lain tetap harus berfungsi: petakan nama kelas lama ke komponen baru lewat alias CSS dan perbaiki yang rusak seminimal mungkin (akan dirombak di tugas berikutnya).
-- Tulis assets/DESIGN.md (maks 40 baris: token dan komponen) dan ringkas di dev_notes sebagai BUTUH untuk tugas lain.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Menu bawah di HP, rail ikon di tablet, sidebar di desktop. Tombol tema berfungsi dan tersimpan.
-  - Tes: Buka login, playground, profil, feed: tetap berfungsi dan tidak berantakan.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 3. [N03] ID akun, pencarian orang, dan verifikasi email kode | Tahap 6 · Desain dan Akun | prasyarat: N02 selesai dan S7 (SMTP Gmail) selesai | berat: tidak | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Tambah identitas akun dan login baru. File: login.html, cari/, assets/ui.js (hanya menambah satu item NAV Cari).
-- Migrasi: profiles.user_code text unique not null, format DH-XXXXXXXX (8 karakter huruf besar+angka tanpa 0 O 1 I), dibuat trigger saat insert, diisi untuk profil lama (UPDATE ... WHERE user_code IS NULL), tidak boleh diubah. Fungsi RPC search_people(q text, lim int default 20): cocok persis user_code, atau username/display_name ILIKE; hanya kolom publik (email TIDAK pernah ikut).
-- /cari: kolom pencarian besar, tab Orang (tab Grup dan Proyek ditambah tugas lain), hasil berupa kartu (avatar, nama, @username, ID, tombol Ikuti/Lihat profil/Pesan). Menempel ID akun langsung membuka hasilnya.
-- ID akun tampil di profil sendiri dengan tombol Salin.
-- login.html baru: tab Masuk/Daftar; daftar lalu layar "Masukkan kode dari email" (verifyOtp type signup; panjang kode 6 atau 8 digit, ikuti pengaturan Supabase), kirim ulang dengan jeda 60 detik, lupa password, pesan error bahasa Indonesia, setelah verifikasi ke profile.html.
-- Verifikasi email kini wajib. Saya sudah mengatur SMTP kustom (S7, pengirim <EMAIL-PENGIRIM>). Beri aku langkah dashboard untuk mengaktifkan lagi Confirm email, plus teks template "Confirm signup" dan "Reset password" berbahasa Indonesia yang memakai {{ .Token }} untuk kutempel di Authentication > Emails. Tunggu "sudah". Jangan pernah meminta App Password.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Ikuti langkah dashboard dari Claude: aktifkan Confirm email dan tempel template email, lalu balas "sudah".
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes: Daftar akun baru: kode masuk ke email (cek spam), masukkan kode, masuk berhasil.
-  - Tes: Kirim ulang kode dan lupa password berfungsi.
-  - Tes: /cari: temukan akun kedua lewat ID akunnya (DH-...) dan lewat username.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 4. [N04] Profil lengkap dan pengaturan | Tahap 6 · Desain dan Akun | prasyarat: N03 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Buat profil seperti situs developer pada umumnya dan tidak pernah terlihat kosong. File: profile.html, settings/, assets/ (hanya menambah).
-- Migrasi (hanya menambah): profiles tambah headline, location, website, github_url, cover_url, skills text[] default '{}', links jsonb default '[]', pinned_project_id uuid null, show_activity bool default true. Bucket covers (publik, upload hanya ke folder uid sendiri, gambar maks 2 MB). RPC profile_stats(uid): jumlah proyek publik, situs terbit, pelajaran selesai, pengikut, mengikuti, post.
-- profile.html baru: header bercover dengan avatar besar (inisial berwarna bila tanpa foto), nama, @username, ID akun (salin), headline, lokasi, tautan, chip skill, tombol Ikuti/Pesan/Edit, baris statistik. Tab: Ringkasan (tentang, proyek unggulan, lencana yang dihitung dari data: proyek, pelajaran, pengikut, post, streak belajar, kemajuan belajar), Proyek (publik), Situs (terbit), Aktivitas (timeline post, proyek baru, pelajaran selesai), Pengikut dan Mengikuti. Edit inline (sheet di HP).
-- Profil baru menampilkan kartu "Lengkapi profilmu" dengan persentase dan langkah-langkah, bukan halaman kosong. Bagian kosong memakai keadaan kosong yang ramah.
-- /settings: akun (ganti password), tema, privasi (profil publik, tampilkan aktivitas), keluar dari semua perangkat.
-- ?u=username tetap berfungsi untuk pengunjung tanpa login (read-only).
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Lengkapi profil (cover, avatar, headline, skill, tautan): tampil rapi di HP dan layar lebar.
-  - Tes: Profil akun baru yang masih kosong tampil menarik, bukan kosong. Buka profile.html?u=username di tab penyamaran: read-only.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 5. [N05] Playground v2: tata letak dan editor | Tahap 7 · Playground dan Proyek | prasyarat: N04 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Rombak total playground/index.html menjadi IDE web modern. Pertahankan semua kemampuan lama: mode HTML/CSS/JS, Python (Pyodide), SQL (sql.js), C/C++/Java lewat Edge Function run-code, simpan/fork lewat tabel projects (?p=id, format files lama harus tetap terbaca), draft di localStorage.
-- Tata letak adaptif: HP = bar tab bawah [Kode | Hasil | Konsol] dengan toolbar atas ringkas; tablet = dua panel (editor | hasil); desktop = tiga zona (penjelajah file kiri, editor bertab tengah, kanan pratinjau + konsol bawah) dengan pembagi yang bisa digeser.
-- Editor CodeMirror 6 (modul ES dari CDN, versi dipatok) dengan sorotan sintaks, auto-kurung, indent, cari/ganti, penomoran baris, lipat kode. Pisahkan kode editor menjadi modul yang bisa diimpor ulang: playground/editor.js (dipakai tugas ngoding bareng nanti).
-- Multi-file: tambah/ubah nama/hapus file, tab file, proyek disimpan di projects.files (jsonb {nama: isi}).
-- Pratinjau iframe sandbox, konsol berwarna (log/warn/error) dengan penanda baris error, mode jalan-otomatis bisa dimatikan.
-- Ringkas di dev_notes nama modul dan fungsi yang diekspor editor.js.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: HTML+CSS+JS multi-file berjalan, console.log dan error tampil.
-  - Tes: Python, SQL, dan C/C++/Java tetap jalan. Proyek lama dari daftar proyek masih terbuka.
-  - Tes: Simpan, fork, refresh: draft dan proyek aman.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 6. [N06] Playground v2: fitur canggih | Tahap 7 · Playground dan Proyek | prasyarat: N05 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Tambah fitur lanjutan ke playground (file: playground/*). Jangan merusak N05.
-- Palet perintah (Ctrl/Cmd+K, di HP lewat tombol menu) berisi semua aksi: jalankan, simpan, format, tema, ganti bahasa, file baru, bagikan.
-- Format kode (Prettier standalone dari CDN, dipatok) untuk HTML/CSS/JS.
-- Galeri template awal: HTML kosong, landing sederhana, To-do JS, kalkulator, Python hello, SQL contoh, C/C++/Java hello world.
-- Pratinjau perangkat: HP/tablet/desktop dengan rotasi.
-- Kolom stdin untuk C/C++/Java, tampilkan stdout/stderr/waktu dengan rapi.
-- Unduh proyek sebagai ZIP (JSZip) dan impor file/ZIP.
-- Tiga tema editor, ukuran font, bilah status (baris/kolom, bahasa, status tersimpan), pintasan keyboard dengan bantuan (?).
-- Tombol Bagikan: jadikan proyek publik dan salin tautan.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Palet perintah, format kode, template, pratinjau perangkat, unduh ZIP berfungsi.
-  - Tes: C dengan stdin menghasilkan output yang benar.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 7. [N07] Proyek v2 dan Jelajah proyek | Tahap 7 · Playground dan Proyek | prasyarat: N06 selesai | berat: tidak | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Rombak projects/ dan tambah Jelajah. File: projects/.
-- Migrasi (menambah): projects tambah description, tags text[], fork_of uuid null; tabel project_likes(project_id, user_id, pk gabungan) RLS: baca publik, tulis hanya pemilik. Hitungan suka lewat view/RPC.
-- projects/index.html baru: tab Milik saya dan Disukai, grid kartu dengan ikon bahasa dan cuplikan, tombol Buat baru, sheet ubah judul/deskripsi/tag/publik, hapus dengan konfirmasi.
-- projects/explore.html: jelajah proyek publik (cari, filter bahasa, urut Terbaru/Populer), suka, fork, lihat read-only dengan info pembuat dan tautan ke profil. Tambahkan tab Proyek di /cari.
-- Menu: tambah Jelajah di bawah Proyek.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Buat 2 proyek, beri tag, jadikan publik, muncul di Jelajah.
-  - Tes: Akun kedua menyukai dan mem-fork proyek itu.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 8. [N08] Situs, builder, dan API docs v2 | Tahap 7 · Playground dan Proyek | prasyarat: N07 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Rombak tampilan sites/, builder/, api-docs/ (s/ hanya dirapikan seperlunya). Tabel tidak diubah kecuali sangat perlu.
-- sites/index.html: galeri template dengan filter kategori dan pencarian, pratinjau iframe skala kecil yang ringan; bagian Situs saya berupa kartu dengan status (Terbit/Draf), tautan salin, edit, hapus.
-- builder/index.html: tata letak adaptif (HP: panel bawah berupa sheet; desktop: blok di kiri, gaya di kanan), toolbar rapi, pratinjau perangkat, simpan otomatis, tombol Terbitkan jelas dengan dialog slug dan cek unik.
-- api-docs/index.html: kunci, dokumentasi berkelompok per endpoint, Coba langsung dengan tampilan respons yang rapi.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Buat situs dari template, ubah, simpan otomatis, terbitkan, buka /s/?u=slug di tab penyamaran.
-  - Tes: Coba langsung di api-docs tetap berjalan dengan key.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 9. [N09] Feed v2 | Tahap 8 · Sosial | prasyarat: N08 selesai | berat: tidak | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Rombak feed/ dan tambah interaksi. File: feed/, profile.html (hanya tombol/jumlah bila perlu).
-- Migrasi (menambah): posts tambah project_id null, image_url null; bucket post-images (publik, upload ke folder uid, maks 2 MB); post_likes(post_id, user_id, pk), post_comments(id, post_id, user_id default auth.uid(), body maks 300, created_at). RLS: baca publik, tulis hanya pemilik.
-- feed/index.html adaptif: HP satu kolom dengan tombol tulis melayang; desktop tiga kolom (menu kiri, feed tengah, kanan: Siapa untuk diikuti + proyek terbaru). Tab Semua/Mengikuti/Tren. Post dapat melampirkan gambar atau kartu proyek publik, suka, komentar (lipat), hapus milik sendiri, hashtag bisa diklik (/feed?tag=), gulir tak terbatas.
-- Saran akun untuk diikuti diambil dari pengguna aktif terbaru yang belum diikuti.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Dengan 2 akun: post dengan gambar dan proyek, suka, komentar, ikuti dari saran.
-  - Tes: Akun lain tidak bisa menghapus post atau komentar orang lain.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 10. [N10] Chat v2: pesan, bagikan proyek, lihat proyek teman | Tahap 8 · Sosial | prasyarat: N09 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Bangun ulang chat/ sebagai aplikasi sendiri yang terpisah dari situs demi privasi. File: chat/ (folder lama diganti), tidak menyentuh file lain kecuali menambah item Chat di NAV bila belum ada.
-- Pisah tampilan: chat/ memakai kerangka layar penuh sendiri (tanpa menu situs; hanya tombol kembali ke situs). Mode privasi: sembunyikan pratinjau pesan di daftar dan tombol kunci cepat.
-- Migrasi (menambah, JANGAN menghapus tabel lama): rooms(id, kind 'dm'|'group', name, created_by, created_at, last_message_at), room_members(room_id, user_id, role 'owner'|'admin'|'member', joined_at, last_read_at, pk gabungan), room_messages(id, room_id, sender default auth.uid(), kind 'text'|'project'|'system', body maks 2000, project_id null, reply_to null, created_at, edited_at, deleted_at). Fungsi SECURITY DEFINER is_room_member(room uuid) dan get_or_create_dm(other uuid). Pindahkan pesan lama: periksa dulu skema tabel messages (list_tables verbose). Bila chat umum, buat satu room group publik "Umum" lalu salin dengan INSERT ... SELECT; bila berupa pesan antar dua pengguna, buat room dm per pasangan lewat INSERT langsung (get_or_create_dm memakai auth.uid() sehingga tidak bisa dipanggil di migrasi). Jangan menghapus tabel lama. RLS: baca dan kirim hanya anggota room. Aktifkan Realtime untuk room_messages dan room_members.
-- UI adaptif: HP satu layar bergantian (daftar lalu obrolan); tablet dua panel; desktop tiga panel (daftar | obrolan | info kontak dan proyek bersama). Pencarian percakapan, penanda belum dibaca, gelembung, balas, hapus pesan sendiri, indikator mengetik (Presence), status dibaca. Mulai chat lewat ?u=username atau dari /cari.
-- Bagikan proyek: tombol lampir memilih proyek sendiri lalu mengirim pesan kind project (kartu). Tabel project_shares(project_id, room_id, shared_by); tambahkan policy SELECT di projects agar anggota room bisa melihat proyek yang dibagikan ke room-nya (read-only, bisa Fork).
-- Lihat proyek teman: panel Proyek di info kontak menampilkan proyek publik teman dan yang dibagikan ke aku. Teman = saling mengikuti (buat view friends).
-- Tombol telepon dan ngoding bareng tampil nonaktif dengan keterangan "segera" (diaktifkan tugas berikutnya).
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Dengan 2 akun: kirim pesan, muncul langsung tanpa refresh, indikator mengetik tampil.
-  - Tes: Bagikan proyek: akun kedua melihat kartu dan bisa membukanya read-only lalu Fork.
-  - Tes: Akun ketiga tidak bisa membaca percakapan mereka. Pesan lama dari chat versi lama masih ada.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 11. [N11] Grup chat publik dan privat | Tahap 8 · Sosial | prasyarat: N10 selesai | berat: tidak | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Tambah grup ke chat/ memakai tabel rooms yang sama dan UI yang sama dengan DM. File: chat/, cari/ (tab Grup).
-- Migrasi (menambah): rooms tambah slug unique null, description, avatar_url, visibility 'public'|'private', invite_code, max_members default 200; room_join_requests(room_id, user_id, status 'pending'|'approved'|'rejected', created_at); bucket group-avatars (publik, maks 1 MB). RLS: anggota membaca dan mengirim; grup publik terlihat di pencarian dan siapa pun yang login bisa bergabung langsung (isi pesan hanya untuk anggota); grup privat tidak muncul di pencarian, masuk lewat undangan, kode, atau permintaan yang disetujui admin.
-- Fitur: buat grup (nama, deskripsi, avatar, visibilitas), kelola anggota (undang, keluarkan, jadikan admin, keluar), pesan tersemat, mention @username, daftar anggota, tautan undangan /chat?join=kode, semua fitur chat (balas, bagikan proyek, dst.).
-- Owner tidak bisa keluar sebelum menyerahkan kepemilikan. Tab Grup di /cari mencari grup publik.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Buat grup publik dan grup privat. Akun lain menemukan yang publik, tidak melihat yang privat.
-  - Tes: Gabung lewat kode undangan, admin menyetujui permintaan, kirim pesan dan proyek ke grup.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 12. [N12] Telepon suara peer-to-peer | Tahap 8 · Sosial | prasyarat: N11 selesai. S8 (TURN) opsional | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Aktifkan panggilan suara di chat/ (DM dan grup). File: chat/, supabase/functions/turn-creds.
-- WebRTC audio saja, peer-to-peer (mesh, maks 6 peserta). Suara terenkripsi dan tidak direkam; server hanya untuk signaling (dan relay TURN bila dipakai).
-- Signaling lewat Supabase Realtime Broadcast pada channel privat "call:<room_id>" dengan policy RLS pada realtime.messages yang hanya mengizinkan anggota room (pakai is_room_member). Hanya yang berada di room itu yang bisa mendengar dan berbicara.
-- Edge Function turn-creds (verify_jwt true): bila secret TURN_API_KEY ada, minta kredensial TURN sementara ke penyedia; bila tidak, kembalikan hanya STUN publik. Klien memakai hasilnya sebagai iceServers.
-- Tabel room_calls(id, room_id, started_by, started_at, ended_at) RLS anggota; panggilan tercatat sebagai pesan sistem ("Panggilan suara 03:12").
-- UI: tombol Telepon di header DM (panggil, dering, terima/tolak) dan grup (mulai panggilan, anggota lain bisa bergabung). Layar panggilan: timer, bisukan, speaker, keluar, daftar peserta dengan indikator sedang bicara. Tangani izin mikrofon ditolak, jaringan putus, sambung ulang.
-Bila aku melakukan S8, beri tahu cara mengisi TURN_API_KEY di Supabase Secrets lalu tunggu "sudah". Bila belum, lewati.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Bila S8 dikerjakan: isi secret TURN_API_KEY di Supabase > Edge Functions > Secrets, lalu balas "sudah".
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Dengan 2 perangkat berbeda (dua HP atau HP dan laptop): panggil, terima, saling mendengar, bisukan.
-  - Tes: Akun di luar room tidak bisa ikut. Di grup, 3 orang bisa saling mendengar.
-  - Bila suara tidak tembus di jaringan seluler tertentu: itu tanda butuh TURN (S8).
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 13. [N13] Ngoding bareng real-time | Tahap 8 · Sosial | prasyarat: N12 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Buat sesi ngoding bareng seperti mengedit bersama di Canva/Google Docs. File baru: collab/; ubah chat/ hanya untuk mengaktifkan tombol Kode.
-- Migrasi: code_sessions(id, room_id, title, language, files jsonb, created_by, created_at, updated_at, is_open bool default true). RLS: hanya anggota room.
-- Tombol Kode di header chat/grup membuka dialog "Mulai sesi ngoding bareng" (dari proyek sendiri atau kosong) dan mengirim kartu undangan ke room. collab/index.html?s=id.
-- Pakai modul editor milik N05 (playground/editor.js, impor ulang, jangan menyalin). Sinkron real-time dengan Yjs (CRDT, CDN dipatok) lewat Supabase Realtime Broadcast pada channel privat "code:<session_id>" (policy RLS hanya anggota room). Presence menampilkan peserta, kursor dan seleksi berwarna dengan nama. Multi-file.
-- Pratinjau hasil dan konsol di samping; tiap peserta menjalankan sendiri. Obrolan kecil di sisi. Simpan snapshot ke code_sessions tiap 10 detik oleh satu peserta terpilih. Tombol Simpan sebagai proyek ke akun sendiri.
-- Hanya anggota room yang bisa masuk; yang lain ditolak. Layar adaptif (HP: kode dan hasil bergantian, daftar peserta berupa sheet).
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: 2 akun/perangkat membuka sesi yang sama: ketikan dan kursor tampil langsung di kedua sisi.
-  - Tes: Akun di luar room ditolak. Simpan sebagai proyek berhasil.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 14. [N14] Asisten AI v2 (Groq, khusus obrolan) | Tahap 9 · AI dan Tools | prasyarat: N13 selesai | berat: tidak | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Rapikan /ai. AI hanya Groq dan hanya untuk obrolan teks; jangan hubungkan ke fitur lain.
-- Edge Function ai: tetap Groq dengan secret GROQ_API_KEY (sudah ada), pilih model gratis yang tersedia saat ini (cek dokumentasi Groq lewat web bila bisa), system prompt asisten coding berbahasa Indonesia, batas 20 pesan/jam/user, masukan maks 4000 karakter.
-- Cari di seluruh file apakah ada bagian lain yang memanggil fungsi ai atau memberi AI akses ke runner kode atau tools; hapus tautannya (tombol Buka di Playground dari AI dihapus, tombol Salin kode dipertahankan). run-code dan tools tidak boleh bisa dipicu oleh AI.
-- Migrasi: ai_chats(id, user_id, title, created_at), ai_messages(id, chat_id, role, content, created_at); RLS pemilik. 
-- ai/index.html baru: riwayat percakapan (sidebar di desktop, drawer di HP), percakapan baru, hapus riwayat, render Markdown aman (marked + DOMPurify), blok kode dengan tombol Salin, streaming bila mudah, sisa kuota ditampilkan.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Tanya "buat fungsi JavaScript penjumlahan": jawaban tampil dan tersimpan di riwayat.
-  - Tes: Tombol Salin kode berfungsi. Tidak ada tombol yang menjalankan kode dari AI. Pesan ke-21 dalam sejam ditolak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 15. [N15] Toolbox v2: kerangka 100 alat | Tahap 9 · AI dan Tools | prasyarat: N14 selesai | berat: tidak | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Bangun ulang tools/ sebagai kerangka yang sanggup memuat 100 alat. File: tools/.
-- tools/registry.js: daftar {id, nama, deskripsi, kategori, tag, modul}. Kategori: Teks, Data, Web, Desain, Gambar, Konversi, Hitung, Waktu, Keamanan, Produktivitas, Referensi.
-- tools/index.html: pencarian instan, chip kategori, bagian Favorit (localStorage) dan Terakhir dipakai, grid kartu rapi.
-- tools/t.html?id=: satu halaman terpadu yang memuat modul alat dari tools/modules/*.js; pembantu bersama (salin, unduh, input file, seret-lepas, sampel contoh). Semua alat berjalan di browser dan tidak mengirim data ke server.
-- Pindahkan 10 alat lama (JSON, Regex, Base64, URL, UUID dan password, warna+kontras, Markdown, Diff, timestamp, hitung kata) ke format baru tanpa kehilangan fungsi.
-- Tulis di dev_notes cara menambah alat baru (maks 6 baris) karena tugas berikutnya menambah 90 alat.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: 10 alat lama tetap berfungsi. Cari, filter kategori, favorit bekerja.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 16. [N16] Tools 11-40: teks dan data | Tahap 9 · AI dan Tools | prasyarat: N15 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Tambah 30 alat kategori Teks dan Data: Kelompokkan jadi 5-6 file modul (tools/modules/<nama>.js) dan daftarkan semuanya di registry.js. Tiap alat punya contoh isian, tombol Salin hasil, dan pesan error jelas. Semua di browser; pustaka kecil lewat CDN dipatok bila perlu. Jangan ubah kerangka. Hindari duplikat dengan alat yang sudah ada; bila tumpang tindih, buat versi berbeda agar total tetap tepat.
-11 Hash (MD5/SHA-1/256/512), 12 HMAC, 13 JWT decoder, 14 HTML entity, 15 Hex-teks, 16 Biner-teks, 17 Morse, 18 ROT13/Caesar, 19 Slug generator, 20 Case converter, 21 Urut dan hapus duplikat baris, 22 Lorem ipsum, 23 Cari-ganti (regex), 24 Frekuensi karakter, 25 CSV ke JSON, 26 JSON ke CSV, 27 JSON ke YAML, 28 YAML ke JSON, 29 XML formatter, 30 HTML formatter/minify, 31 CSS beautify/minify, 32 JS beautify/minify, 33 SQL formatter, 34 Markdown ke HTML, 35 HTML ke Markdown, 36 Pengacak/roda pilihan, 37 Inspektur Unicode, 38 Escape/unescape string, 39 Query string parser, 40 URL parser.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes: Buka tiap alat dengan contoh bawaan, hasil benar. Total alat di /tools menjadi 40.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 17. [N17] Tools 41-70: web, desain, dan gambar | Tahap 9 · AI dan Tools | prasyarat: N16 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Tambah 30 alat kategori Web, Desain, Gambar, Referensi: Kelompokkan jadi 5-6 file modul (tools/modules/<nama>.js) dan daftarkan semuanya di registry.js. Tiap alat punya contoh isian, tombol Salin hasil, dan pesan error jelas. Semua di browser; pustaka kecil lewat CDN dipatok bila perlu. Jangan ubah kerangka. Hindari duplikat dengan alat yang sudah ada; bila tumpang tindih, buat versi berbeda agar total tetap tepat.
-41 Gradient CSS, 42 Box shadow, 43 Border radius, 44 Flexbox playground, 45 CSS Grid generator, 46 Glassmorphism, 47 Palet warna, 48 Konverter warna HEX/RGB/HSL, 49 Gambar ke Base64, 50 Kompres gambar, 51 Ubah ukuran gambar, 52 Konversi format gambar (PNG/JPG/WebP), 53 SVG viewer/optimizer, 54 Favicon generator, 55 QR code generator, 56 QR scanner (kamera), 57 Barcode generator, 58 Meta tag generator, 59 Pratinjau Open Graph, 20 robots.txt dan sitemap, 61 Kode status HTTP, 62 Daftar MIME type, 63 Cron expression builder, 64 Git cheat sheet, 65 Kalkulator chmod, 66 Pola regex umum, 67 Penampil keycode, 68 Info layar dan viewport, 69 User agent parser, 70 Clip-path generator.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes: Buka tiap alat dengan contoh bawaan. Alat gambar dan QR bekerja di HP. Total alat menjadi 70.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 18. [N18] Tools 71-100: konversi, hitung, produktivitas | Tahap 9 · AI dan Tools | prasyarat: N17 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Tambah 30 alat kategori Konversi, Hitung, Waktu, Keamanan, Produktivitas: Kelompokkan jadi 5-6 file modul (tools/modules/<nama>.js) dan daftarkan semuanya di registry.js. Tiap alat punya contoh isian, tombol Salin hasil, dan pesan error jelas. Semua di browser; pustaka kecil lewat CDN dipatok bila perlu. Jangan ubah kerangka. Hindari duplikat dengan alat yang sudah ada; bila tumpang tindih, buat versi berbeda agar total tetap tepat.
-71 Konverter satuan, 72 Basis angka (bin/oct/dec/hex), 73 Angka Romawi, 74 Angka ke terbilang Indonesia, 75 Kalkulator persen, 76 Kalkulator ilmiah, 77 BMI, 78 Hitung umur, 79 Selisih tanggal, 80 Tambah/kurang tanggal, 81 Konverter zona waktu, 82 Pomodoro, 83 Stopwatch dan hitung mundur, 84 Angka acak, 85 Dadu dan koin, 86 Pengecek kekuatan password, 87 Generator passphrase, 88 To-do lokal, 89 Catatan cepat, 90 Diskon dan PPN, 91 Cicilan pinjaman, 92 Bunga majemuk, 93 Bagi tagihan, 94 Subnet IP/CIDR, 95 Kalkulator bitwise, 96 Rasio aspek, 97 PX ke REM, 98 Tabel ASCII, 99 Hash SHA-256 file, 100 Tes kecepatan mengetik.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes: Buka tiap alat dengan contoh bawaan. Total alat di /tools menjadi tepat 100. Cari "pajak" atau "umur" menemukan alat yang tepat.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 19. [N19] Platform belajar v2 | Tahap 10 · Belajar | prasyarat: N18 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Rombak learn/ menjadi platform belajar lengkap. File: learn/.
-- Migrasi (menambah): courses tambah icon, tags text[], est_hours, status 'draft'|'published' default 'published'; lessons tambah quiz jsonb ([{q, options, answer, why}]), est_minutes; paths(id, slug unik, title, description, sort), path_courses(path_id, course_id, sort); bookmarks(user_id, lesson_id), notes(user_id, lesson_id, body, updated_at), quiz_attempts(user_id, lesson_id, score, created_at). RLS: katalog baca publik; bookmarks, notes, attempts hanya pemilik.
-- Tambah baris kursus berstatus draft (judul, deskripsi, level) untuk slug yang akan diisi tugas berikutnya: html-css (sudah ada), javascript (sudah ada), python (sudah ada), sql, git, c, cpp, java, typescript, react, nodejs, tailwind-bootstrap, algoritma, keamanan-web, linux-cli. Buat 3 jalur: Web Frontend (html-css, javascript, tailwind-bootstrap, typescript, react), Backend dan Data (python, sql, nodejs, git), Sistem dan Algoritma (c, cpp, java, algoritma, linux-cli, keamanan-web).
-- Pastikan lessons punya kunci unik (course_id, sort) agar upsert kursus berikutnya jalan; bila data lama bentrok, laporkan dan jangan hapus. Format quiz: answer = indeks mulai 0 dari options. Blok kode biasa tanpa "try" tidak punya tombol Coba.
-- learn/index.html: bagian Lanjutkan belajar, jalur belajar, katalog (cari, filter level/tag), kartu dengan progres, kursus draft ditandai "Segera hadir".
-- Halaman kursus: silabus per bab, estimasi waktu. lesson.html: desktop dua panel (daftar pelajaran | isi | daftar isi/catatan), HP isi penuh dengan drawer daftar; tipografi nyaman; blok kode dengan Salin dan Coba (tambahkan blok ```try c, cpp, java, sql selain html, js, python; buka di /playground dengan bahasanya); kuis pilihan ganda dari kolom quiz dengan skor; catatan pribadi; bookmark; Tandai selesai; sebelumnya/berikutnya; streak harian; sertifikat cetak (learn/cert.html?c=) saat kursus 100%; pencarian pelajaran global.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Jalur dan katalog tampil, kursus lama (HTML/CSS, JS, Python) tetap terbuka dan progres lama aman.
-  - Tes: Catatan, bookmark, Tandai selesai, Coba berfungsi.
-  - Kuis baru diuji setelah ada pelajaran berkuis (tugas kursus berikutnya).
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 20. [N20] Kursus HTML dan CSS lanjutan (13-24) | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Perluas kursus HTML dan CSS (slug "html-css"): baca judul pelajaran yang sudah ada lebih dulu, lalu tulis silabus 12 pelajaran LANJUTAN bernomor setelah pelajaran terakhir (biasanya 13 dst). Cakupan: HTML semantik lanjut, form dan validasi, aksesibilitas, SEO dasar, Flexbox, Grid, desain responsif, transisi dan animasi, variabel CSS, pseudo-class dan pseudo-element, layout modern, proyek akhir. Contoh kode berblok ```try html. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 21. [N21] Kursus JavaScript lanjutan (13-24) | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Perluas kursus JavaScript (slug "javascript"): baca judul pelajaran yang sudah ada lebih dulu, lalu tulis silabus 12 pelajaran LANJUTAN bernomor setelah pelajaran terakhir (biasanya 13 dst). Cakupan: DOM lanjut, event, Promise dan async/await, fetch API dan JSON, modul ES, penanganan error, localStorage, class dan OOP, regex, array method lanjut, Date, proyek akhir. Contoh kode berblok ```try js. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 22. [N22] Kursus Python lanjutan (13-24) | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Perluas kursus Python (slug "python"): baca judul pelajaran yang sudah ada lebih dulu, lalu tulis silabus 12 pelajaran LANJUTAN bernomor setelah pelajaran terakhir (biasanya 13 dst). Cakupan: OOP, modul dan paket, file I/O, exception, list comprehension, generator, decorator, regex, JSON dan CSV, virtual environment, testing dasar, proyek akhir. Contoh kode berblok ```try python. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 23. [N23] Kursus SQL dan Database | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru SQL dan Database (slug "sql"): tulis silabus 16 pelajaran. Cakupan: SELECT, filter, urut, agregasi, GROUP BY, JOIN, subquery, CTE, window function, CREATE/ALTER, constraint, index, transaksi, normalisasi, view, dasar RLS Postgres/Supabase, proyek akhir. Contoh kode berblok ```try sql. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (4 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 24. [N24] Kursus Git dan GitHub | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Git dan GitHub (slug "git"): tulis silabus 10 pelajaran. Cakupan: konsep versi, init dan commit, branch, merge, konflik, remote GitHub, pull request, rebase, .gitignore, alur kerja tim. Semua contoh perintah berupa blok kode biasa (tanpa try); playground tidak menjalankan Git. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 25. [N25] Kursus Bahasa C | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Bahasa C (slug "c"): tulis silabus 16 pelajaran. Cakupan: pengenalan, tipe data, operator, kontrol alur, loop, fungsi, array, string, pointer, struct, memori dinamis, file, preprocessor dan header, debugging, proyek akhir. Contoh kode berblok ```try c. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (4 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 26. [N26] Kursus C++ | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru C++ (slug "cpp"): tulis silabus 16 pelajaran. Cakupan: beda dengan C, I/O, tipe, referensi, fungsi, class, konstruktor, inheritance, polymorphism, template, STL (vector, map), string, exception, smart pointer, file, proyek akhir. Contoh kode berblok ```try cpp. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (4 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 27. [N27] Kursus Java | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Java (slug "java"): tulis silabus 16 pelajaran. Cakupan: pengenalan, tipe, kontrol, array, method, class dan OOP, inheritance, interface, exception, collections, generics, file I/O, lambda dan stream, string, konkurensi dasar, proyek akhir. Contoh kode berblok ```try java. Gunakan satu class Main per contoh agar bisa dijalankan. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (4 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 28. [N28] Kursus TypeScript | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru TypeScript (slug "typescript"): tulis silabus 12 pelajaran. Cakupan: alasan memakai TS, tipe dasar, interface, union, generics, fungsi, class, enum, narrowing, utility types, modul, tsconfig dan proyek. Contoh kode berblok ```try js. Playground tidak mengompilasi TS: tampilkan TS sebagai blok biasa dan sertakan hasil JS-nya dalam blok try js. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 29. [N29] Kursus React | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru React (slug "react"): tulis silabus 14 pelajaran. Cakupan: JSX, komponen, props, state, event, effect, list dan key, form, context, reducer, custom hook, router, performa, proyek akhir. Contoh kode berblok ```try html. Contoh memakai React UMD dan Babel standalone dari CDN (versi dipatok) agar jalan di playground. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (4 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 30. [N30] Kursus Node.js dan API | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Node.js dan API (slug "nodejs"): tulis silabus 14 pelajaran. Cakupan: dasar Node, modul, npm, fs, http, Express, routing, middleware, REST, autentikasi JWT, validasi, database, env, deploy. Contoh kode berblok ```try js. Kode server ditulis sebagai blok biasa (tanpa try) kecuali JavaScript murni. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (4 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 31. [N31] Kursus Tailwind dan Bootstrap | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Tailwind dan Bootstrap (slug "tailwind-bootstrap"): tulis silabus 10 pelajaran. Cakupan: konsep utility-first, layout, tipografi, warna, komponen, responsif, dark mode, grid Bootstrap, komponen Bootstrap, proyek akhir. Contoh kode berblok ```try html. Contoh memakai CDN (versi dipatok). Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 32. [N32] Kursus Algoritma dan Struktur Data | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Algoritma dan Struktur Data (slug "algoritma"): tulis silabus 16 pelajaran. Cakupan: Big-O, array, string, linked list, stack, queue, hash table, tree, BST, graph, sorting, searching, rekursi, dynamic programming, greedy, proyek akhir. Beri contoh JavaScript (try js) dan Python (try python). Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (4 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 33. [N33] Kursus Keamanan Web | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Keamanan Web (slug "keamanan-web"): tulis silabus 10 pelajaran. Cakupan: OWASP, XSS, CSRF, SQL injection, autentikasi, sesi dan JWT, HTTPS, CORS, header keamanan, pengelolaan rahasia. Contoh kode berblok ```try js. Hanya sisi defensif: cara mengenali dan mencegah, tanpa panduan menyerang. Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: tombol Coba membuka playground, soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 34. [N34] Kursus Linux CLI | Tahap 10 · Belajar | prasyarat: N19 | berat: tidak | deploy: tidak | jenis: kursus
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Isi kursus baru Linux CLI (slug "linux-cli"): tulis silabus 10 pelajaran. Cakupan: navigasi, file dan folder, permission, pipe dan redirect, grep, find, shell script, proses, jaringan, ssh. Semua perintah berupa blok kode biasa (tanpa try). Ikuti KONTRAK KURSUS.
-
-Simpan memori sesuai [MEMORI] (tanpa deploy; konten ada di database).
-Langkah:
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Tulis di bawah prompt satu baris bila ingin menekankan topik tertentu. Setujui silabus ("setuju"), lalu ketik "lanjut" tiap batch (3 batch).
-  - Ketuk Izinkan pada konektor Supabase untuk tiap batch.
-  - Tes: Buka beberapa pelajaran baru di /learn: soal latihan dan kuis tampil, tidak ada teks rusak.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-
---- 35. [N35] Audit dan rilis v2 | Tahap 11 · Rilis | prasyarat: semua tugas N01-N34 selesai | berat: ya | deploy: ya | jenis: bangun
-Awal: baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir).
-Audit dan rilis versi 2.
-- get_advisors (security dan performance): perbaiki semua WARN/ERROR.
-- Semua tabel baru: RLS aktif; ringkas pg_policies dan policy bucket; cari policy terlalu longgar. Periksa fungsi SECURITY DEFINER (search_path tetap) dan policy realtime.messages untuk panggilan dan ngoding bareng (hanya anggota room).
-- Audit memori: dev_prompt_log harus berisi N01-N34 berstatus done (laporkan yang partial atau kosong) dan meta deployment terakhir menyebut devhub_done lengkap.
-- Pastikan tidak ada service_role atau rahasia (RAPIDAPI_KEY, GROQ_API_KEY, TURN_API_KEY, App Password) di file deployment.
-- Cek semua tautan menu dan halaman mengarah ke halaman yang ada. Cek tidak ada yang memanggil AI selain /ai.
-- Performa: ukuran file, lazy-load modul berat (editor, Pyodide, Yjs, alat), header cache di vercel.json untuk aset statis.
-- Aksesibilitas dasar: label form, kontras, fokus, target sentuh.
-- Tata letak: kamu tidak bisa membuka browser, jadi tinjau CSS dan breakpoint secara statis dan buat checklist uji manual untuk lebar 390, 820, 1280 untukku. Jangan mengklaim sudah diuji.
-- Perbarui /tentang: fitur terbaru, batas layanan gratis, cara lapor.
-Laporkan yang masih kurang, lalu deploy.
-
-Simpan memori sesuai [MEMORI], deploy, beri alamat situs.
-Langkah:
-  - Prompt BERAT: pakai akun Claude dengan jatah penuh. Bila terpotong ketik: lanjut.
-  - Buka chat BARU di Claude, tempel prompt (tombol Salin).
-  - Balas ya bila Claude minta persetujuan SQL. Ketuk Izinkan pada permintaan konektor Supabase/Vercel.
-  - Buka alamat situs dari Claude di browser HP.
-  - Tes tampilan: buka di HP, lalu di layar lebih lebar (tablet/laptop atau menu browser > Situs desktop). Tata letak harus berubah sesuai lebar, bukan sekadar mengecil.
-  - Tes: Buka tiap menu dari beranda: tidak ada halaman kosong atau 404.
-  - Tes: Daftar dengan kode email, buat proyek, kirim chat dan proyek, telepon, ngoding bareng, tanya AI, buka satu alat dan satu pelajaran.
-  - Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.
-</script>
 <script>
-const RAW=document.getElementById('src').textContent.replace(/^\n/,'').replace(/<\\\/script/g,'</script');
-const $=s=>document.querySelector(s),esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const KEY='dh91';let S={};try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
-S=Object.assign({done:{},st:{},set:{},acc:'A',tab:'p',f:'all',q:'',open:{},tc:{}},S);
+const D={"kontrak": "KONTRAK DEVHUB v3 (taati di semua tugas)\nTugas saya = bagian TUGAS di bawah. Ubah hanya file yang disebut; file lain ikut deploy apa adanya.\n\n[PROYEK] DevHub v3 memperbaiki dan melengkapi v2 yang sudah hidup. Statis tanpa build: HTML, CSS, JavaScript modul. CDN dipatok, rilis berumur lebih dari 14 hari. Backend Supabase. Hosting satu project Vercel \"devhub\". Antarmuka berbahasa Indonesia.\n\n[VERIFIKASI] Nama folder, nama file, dan nama kelompok menu di tugas ini adalah perkiraan. Cocokkan dulu dengan file production yang nyata dan pakai nama aslinya. Jangan menebak dan jangan membuat halaman duplikat.\n\n[DESAIN] Rapikan, jangan ganti kepribadian merek.\n- Token tetap di assets/app.css. Jarak kelipatan 4, satu nilai radius kartu, ikon SVG inline. Gradasi paling banyak di satu judul hero.\n- Di bawah 640px: satu kolom, tab bawah, tanpa scroll mendatar. 640-1023px: rel ikon. 1024px ke atas: sidebar penuh.\n- Padding halaman minimal 16px dan aman dari safe-area. Nav lengket tidak boleh menutupi judul (offset konten, scroll-margin pada judul).\n- Target sentuh minimal 44px, kontras setara AA, fokus keyboard terlihat, prefers-reduced-motion dihormati.\n- Satu aksi primer per layar. Keadaan kosong menjelaskan langkah berikutnya. Saat memuat tampil skeleton. Pesan error dalam bahasa manusia.\n- Pakai ulang komponen yang ada: .card .btn .input .chip .badge .tabs .modal .drawer .empty .skeleton .avatar.\n\n[PETA DATA NYATA] (hasil pemeriksaan project; tetap cocokkan lagi)\n- Path file di deployment berawalan src/. Halaman tentang berupa file tentang.html, bukan folder.\n- Feed: tabel posts(id,user_id,body,created_at) saja, belum ada komentar atau suka. Forum: forum_posts, forum_comments, forum_votes. Suka proyek: project_likes.\n- Grup dan chat: rooms, room_members, room_join_requests, room_messages. Pesan pribadi: messages. Progres belajar: progress(user_id,lesson_id,done_at).\n- RPC yang ada: search_people, search_groups, explore_projects, profile_stats, like_counts. Realtime sekarang memuat messages, forum_comments, chat_messages, room_messages, room_calls.\n\n[ANTARMUKA TETAP]\n- assets/ui.js hanyalah shim di atas assets/ui-core.js. NAV dan mountNav ada di ui-core.js; ubah di tempat yang benar dan jaga agar shim tetap bekerja. NAV Belajar di ui-core.js usang: perbaiki bila disentuh.\n- assets/supabase.js mengekspor sb dan getUser(). assets/ui.js tetap mengekspor mountNav(), toast(), esc(). Ekspor baru boleh ditambah, yang lama jangan dihapus.\n- Kelompok menu yang ada jangan dipecah. Item menu baru hanya bila diminta tugas. Halaman aktif punya tanda di tab, rel, dan sidebar.\n- Tabel lama tidak dihapus. Migrasi hanya menambah. RLS aktif sejak tabel dibuat. Fungsi SECURITY DEFINER memakai search_path tetap.\n- AI hanya Groq di /ai. Jangan sambungkan AI ke playground, run-code, atau tools.\n- Jangan minta atau menulis App Password, service_role, atau API key.\n\n[ATURAN SUPABASE] Project \"<NAMA-DEV>\" (id: <ID-DEV>) saja.\n- SQL lewat apply_migration, nomor melanjutkan migrasi terakhir, idempoten bila bisa. Ringkas maksimal 10 baris, tunggu \"ya\".\n- Dilarang DROP, TRUNCATE, DELETE tanpa WHERE, membuat atau menghapus project. Satu-satunya pengecualian: DROP POLICY pada policy ganda di tabel projects dan sites, hanya di N42 dan hanya setelah saya menjawab \"ya\".\n- Setelah migrasi jalankan get_advisors security dan bereskan peringatan RLS baru. Klien hanya anon key.\n\n[ATURAN VERCEL] Project \"devhub\" saja (team: <TEAM-VERCEL>; bila kosong, list_teams).\n- Deploy production, framework null. Setiap deploy memuat SEMUA file yang sudah ada: list_deployment_files, file tak berubah ikut lewat sha dan size, baca isi hanya bila sha tidak ada.\n- Jangan mengubah env, domain, atau setting. Gagal: baca log, perbaiki, rollback bila perlu. Sebutkan alamat situs setelah deploy.\n\n[MEMORI]\nAwal: baca dev_prompt_log dan dev_notes (sumber utama), lalu assets/MEMORY.md bila perlu. Meta deployment Vercel boleh kosong (API sering mengembalikan meta kosong walau dikirim): itu bukan error, jangan dipermasalahkan dan jangan jadi alasan berhenti. Bila status tugas ini partial, lanjut dari bagian yang belum. Upsert status started.\nAkhir: upsert dev_prompt_log (done, partial, atau failed; ringkas maksimal 8 baris). Perbarui dev_notes. Bila ada deploy, perbarui assets/MEMORY.md (maks 60 baris, wajib) dan kirim meta devhub_prompt, devhub_done, devhub_memory (maks 1500 karakter) sebagai tambahan saja. Tanpa rahasia dan tanpa email pengguna. ID v3 mulai N36; jangan menimpa baris N01-N35.\n\n[JAWABAN] Kerjakan lewat konektor, jangan menempel isi file panjang di chat. Jangan bertanya bila kontrak sudah cukup; catat asumsi. Laporan akhir maksimal 8 baris, baris terakhir persis: STATUS: <ID> <done|partial|failed> | berikutnya: <ID>.\n[AKHIR KONTRAK]", "lanjut": "LANJUT: tugas ini sudah sebagian dikerjakan di chat atau akun sebelumnya. Baca memori sesuai [MEMORI], cek apa yang sudah ada, kerjakan HANYA bagian yang belum, jangan ulang migrasi yang sudah ada.", "p": [{"id": "N36", "title": "Rapikan HP dan penanda menu", "tahap": "Tahap 12 · Rapikan", "berat": false, "deploy": true, "pre": "N35 selesai, atau sisanya sudah diputuskan pengguna", "body": "Awal: baca memori. Baca daftar file production, assets/app.css, assets/ui.js, assets/ui-core.js, index.html, 404.html, dan satu halaman dari tiap kelompok menu.\nYang sudah diketahui: beranda memakai padding 14px di bawah 640px, kontrak meminta minimal 16px plus safe-area. Jangan menambah fitur.\n- Di lebar 390 tidak ada scroll mendatar pada index, learn, tools, projects, feed, chat, playground, profile, login. Teks, chip, dan kartu tidak terpotong di tepi. Padding minimal 16px plus safe-area.\n- Nav lengket dan tab bawah tidak menutupi judul: beri offset pada konten dan scroll-margin pada h1/h2/h3.\n- Tandai item menu yang sedang dibuka di tab bawah, rel, dan sidebar, termasuk subjalur seperti /projects/explore.\n- 404.html: kalimat manusiawi dan tombol ke beranda, cari, dan belajar.\n- Footer: tautan email (bila ada) wajib mailto, tidak ada kata menempel, pemisah rapi.\n- Bila vercel.json memberi header noindex, cukup laporkan; jangan ubah.\nFile: assets/app.css, assets/ui.js, assets/ui-core.js, index.html, 404.html. Halaman lain hanya bila kelasnya pecah karena token.\nUji statis di lebar 390, 820, 1280. Jangan mengklaim sudah membuka browser.", "tes": ["Buka situs di HP: tidak ada scroll kiri-kanan di beranda, Belajar, Tools, Feed.", "Scroll ke judul section: tidak masuk ke bawah nav.", "Halaman yang dibuka terasa aktif di menu. Buka alamat ngawur: 404 punya jalan pulang."]}, {"id": "N37", "title": "Laporan ringan", "tahap": "Tahap 13 · Komunitas", "berat": false, "deploy": true, "pre": "N36", "body": "Awal: baca memori. Baca feed/, forum/, tentang.html, tabel posts, forum_posts, forum_comments.\n- Migrasi reports(id uuid pk, reporter uuid default auth.uid(), target_type text check in ('post','forum_post','forum_comment'), target_id uuid, reason text check panjang 3-300, created_at timestamptz default now()) dengan unique(reporter, target_type, target_id).\n- RLS: insert hanya bila reporter = auth.uid(). Tidak ada policy select, update, atau delete untuk anon dan authenticated. Laporan dibaca pengelola lewat dashboard Supabase; jangan membuat panel admin.\n- Tombol \"Laporkan\" di post Feed, post Forum, dan komentar Forum milik orang lain (modal, alasan singkat). Tidak muncul di milik sendiri. Laporan kedua ke target yang sama: pesan ramah \"Kamu sudah melaporkan ini\".\n- Fitur yang sudah ada di Feed dan Forum (hashtag, voting, komentar, hapus milik sendiri) tetap.\n- Perbarui bagian \"Cara melapor\" di /tentang: konten bermasalah lewat tombol Laporkan di Feed dan Forum; masalah keamanan tetap lewat pesan pribadi ke pengelola.\nFile: feed/, forum/, tentang.html.", "tes": ["Akun A melaporkan post Feed, post Forum, dan komentar Forum akun B: berhasil. Lapor lagi: ditolak dengan pesan ramah.", "Akun A tidak melihat tombol Laporkan di postnya sendiri.", "Di Supabase dashboard baris laporan ada; lewat situs tidak ada yang bisa membacanya."]}, {"id": "N38", "title": "Cari satu pintu", "tahap": "Tahap 14 · Cari", "berat": true, "deploy": true, "pre": "N37", "body": "Awal: baca memori. Baca cari/ (nama asli), assets/ui-core.js (topbar), tools/registry.js, skema courses dan lessons.\n/cari kini mencari orang, grup, dan proyek publik. Jadikan satu pencarian dengan menambah pelajaran dan alat.\n- Satu kolom cari di atas, hasil terkelompok: Orang, Proyek, Grup, Pelajaran, Alat. Maksimal 5 per kelompok plus \"lihat semua\" bila lebih.\n- Pakai RPC yang sudah ada (search_people, search_groups, explore_projects); jangan ditulis ulang. Pelajaran dari lessons yang kursusnya published (periksa RLS). Alat dari registry lokal tanpa server; jangan menyalin data alat ke database.\n- Email tidak pernah muncul. Grup privat tidak muncul. Kecocokan persis user_code (DH-...) langsung membuka profil.\n- Hasil kosong memberi contoh kueri. Kotak cari di topbar (bila ada) mengarah ke /cari?q=.\n- Migrasi hanya bila benar-benar perlu (mis. indeks); lebih baik tanpa.\nFile: cari/, assets/ui-core.js (atau ui.js bila itu titik masuknya). learn/ dan tools/ hanya bila perlu mengekspor daftar yang sudah ada.", "tes": ["Cari username, kode DH-, judul proyek publik, dan kata json atau umur: semua muncul di kelompok yang tepat.", "Grup privat tidak muncul. Email tidak ada di HTML hasil.", "Di HP hasil satu kolom dan tidak terpotong."]}, {"id": "N39", "title": "Notifikasi dan lonceng", "tahap": "Tahap 14 · Pulang", "berat": true, "deploy": true, "pre": "N38", "body": "Awal: baca memori. Baca assets/ui-core.js dan ui.js, forum/, projects/, chat/ (hanya titik kirim pesan), skema forum_posts, forum_comments, project_likes, rooms, room_members, room_join_requests, messages, room_messages.\n- Migrasi notifications(id uuid pk, user_id uuid default auth.uid(), kind text, title text, href text, read_at timestamptz, created_at timestamptz default now()). RLS: pemilik boleh select dan update read_at saja. Insert dari klien tidak diizinkan; semua lewat fungsi SECURITY DEFINER (search_path tetap) yang memeriksa pelaku = auth.uid() dan target bukan diri sendiri.\n- Daftarkan tabel ke publikasi Realtime (alter publication supabase_realtime add table) agar lonceng bertambah tanpa refresh. Pastikan hanya pemilik yang menerima (filter user_id plus RLS).\n- Picu untuk: komentar Forum di postinganku (forum_comments), suka pada proyekku (project_likes, sekali per orang per proyek), permintaan gabung grup yang aku admin (room_join_requests), pesan baru (messages dan room_messages). Feed belum punya komentar atau suka, jadi tidak ada pemicu dari sana. Pesan memakai judul umum \"Pesan baru\", tanpa isi pesan, dan digabung: maksimal satu notifikasi belum dibaca per room.\n- UI: lonceng di topbar dengan badge angka, laci daftar (layar penuh di HP), tandai dibaca, ketuk membuka href.\n- forum/, projects/, dan chat/ hanya memanggil fungsi notifikasi. Jangan ubah tata letak chat, WebRTC, atau Yjs.\nFile: assets/ui-core.js, assets/ui.js, assets/app.css, forum/, projects/, chat/ (panggilan fungsi saja).", "tes": ["Akun A komentar di post Forum akun B: lonceng B bertambah tanpa refresh, ketuk, sampai ke post itu.", "A mengirim 5 pesan ke B: B hanya punya satu notifikasi berjudul Pesan baru tanpa isi pesan. Suka proyek dan permintaan gabung grup juga memunculkan notifikasi.", "A tidak menerima notifikasi atas aksinya sendiri."]}, {"id": "N40", "title": "Jalan pertama setelah daftar", "tahap": "Tahap 14 · Akun", "berat": false, "deploy": true, "pre": "N39", "body": "Awal: baca memori. Baca login.html, profile.html, struktur tabel profiles.\n- Migrasi: profiles.onboarded_at timestamptz null. Pada migrasi yang sama LANGSUNG isi onboarded_at = now() untuk semua profil yang sudah ada, supaya anggota lama tidak dipaksa onboarding. Hanya akun baru yang null.\n- Setelah kode email berhasil dan onboarded_at null, alihkan ke /mulai: tiga langkah (lengkapi nama dan headline, buka satu pelajaran, jalankan satu contoh di playground). Tiap langkah bisa dilewati. Selesai atau lewati semua mengisi onboarded_at lalu menuju beranda.\n- Satu kolom di HP, tiga kolom di desktop, satu aksi primer per langkah. Setelah onboarded_at terisi tidak pernah memaksa lagi.\n- Kartu \"Lengkapi profilmu\" di profile.html mengarah ke /mulai hanya bila onboarded_at masih null.\nFile: mulai/, login.html (hanya alihan), profile.html (hanya kartu itu).", "tes": ["Daftar akun baru, masukkan kode: yang terbuka /mulai, bukan profil kosong.", "Lewati semua: kunjungan berikutnya tidak memaksa /mulai.", "Login dengan akun lama: langsung ke beranda, tidak dipaksa ke /mulai."]}, {"id": "N41", "title": "Beranda anggota: Lanjutkan", "tahap": "Tahap 15 · Beranda", "berat": false, "deploy": true, "pre": "N39 dan N40", "body": "Awal: baca memori. Baca index.html, kunci localStorage draf di playground/ (nama kunci asli), tabel progress dan projects.\n- Anggota yang login: sapaan nama (bukan email), kartu \"Lanjutkan\" berisi pelajaran terakhir dari progress, draf playground bila ada, proyek terakhir, dan jumlah notifikasi belum dibaca dari N39. Lalu cuplikan proyek publik terbaru dan satu saran orang untuk diikuti.\n- Tamu: pertahankan beranda sekarang, pastikan hanya satu ajakan primer. Angka bukti hanya dari data nyata; bila nol, tulis kalimat jujur.\n- Bagian kosong memakai empty state, bukan lubang. Gradasi hanya di judul hero.\nFile: index.html, assets/ui-core.js hanya bila perlu helper bersama.", "tes": ["Buka beranda lewat tab penyamaran: satu ajakan masuk. Setelah login: sapaan dan kartu Lanjutkan.", "Selesaikan satu pelajaran, kembali ke beranda: kartu menunjuk pelajaran berikutnya.", "Email tidak tampil di mana pun di beranda."]}, {"id": "N42", "title": "Audit rilis v3", "tahap": "Tahap 16 · Rilis", "berat": true, "deploy": true, "pre": "N36-N41", "body": "Awal: baca memori.\n- get_advisors security dan performance. Bereskan WARN/ERROR akibat reports dan notifications.\n- Peringatan performa \"multiple permissive policies\" di projects dan sites: tampilkan daftar policy yang tumpang tindih (pg_policies) dan usulan DROP POLICY paling minimal agar hak akses tidak berubah. Tunggu saya menjawab \"ya\", jalankan lewat apply_migration, cek ulang advisor, lalu uji akses. Peringatan lain yang sudah dicatat disengaja (SECURITY DEFINER dengan search_path tetap, leaked password protection di dashboard) cukup dilaporkan.\n- Pastikan isi pesan chat tidak tersimpan di notifications.\n- Cari service_role, GROQ_API_KEY, TURN_API_KEY, RAPIDAPI_KEY, dan App Password di file deployment. Laporkan bila ada, jangan tulis nilainya.\n- Setiap href menu mengarah ke file yang ada. Tidak ada pemanggilan AI di luar /ai.\n- Tidak ada lebar tetap yang memaksa scroll mendatar di 390px pada halaman utama, /cari, dan /mulai.\n- Perbarui tentang.html: sebut cari gabungan, notifikasi, jalan pertama, dan laporan. Jangan mengarang angka pengguna. Batas gratis tetap.\n- dev_prompt_log harus berisi N36-N41 berstatus done atau partial yang kamu selesaikan. Jangan mengubah baris N01-N35.\n- Bila vercel.json memberi header noindex, laporkan tanpa mengubahnya.\nLaporkan sisa kekurangan dan beri checklist uji manual lebar 390, 820, 1280. Jangan mengklaim sudah menguji di browser.", "tes": ["Dari beranda buka tiap menu di HP: tidak ada 404 dan tidak ada scroll mendatar.", "Uji singkat: daftar, lonceng, cari, laporkan satu post, satu proyek, satu pelajaran, satu alat.", "Proyek dan situs milikku tetap bisa dibuka dan diubah; milik orang lain tetap tidak bisa diubah."]}], "gemini": "PERAN: Kamu pemandu proyek. Pengguna membangun perbaikan DevHub v3 dengan menjalankan 7 prompt (N36-N42) di chat Claude, di akun Claude yang bergantian. Kamu TIDAK menulis kode situs dan TIDAK menjalankan apa pun.\nSUMBER KEBENARAN: file prompt v3. Jangan mengarang isi prompt dan jangan menyuruh mengulang N01-N35.\nGAYA: bahasa Indonesia, ramah, singkat, nyaman di HP (maks sekitar 8 baris). Satu langkah per giliran.\nSETIAP PROMPT: (1) umumkan ID, judul, berat atau ringan, ada deploy atau tidak, dan cek prasyarat; (2) cek akun: prompt BERAT hanya di akun berjatah penuh, akun baru harus menghubungkan konektor Supabase dan Vercel lalu uji \"daftar project\"; (3) beri satu blok salin berisi KONTRAK + TUGAS (atau arahkan ke tombol Salin prompt di roadmap); (4) tuntun langkah dan tes di HP dan layar lebar; (5) minta laporan akhir Claude, baris terakhir \"STATUS: ...\"; (6) gagal: minta pesan error persis, tulis koreksi pendek untuk chat Claude yang SAMA; (7) lolos: catat selesai dan sebut prompt berikutnya.\nBila tugas terputus di akun lain, pakai prompt lanjut (tombol di roadmap).\nCEK GANTI AKUN (akun Claude baru): (a) konektor Supabase dan Vercel terhubung, (b) uji \"daftar project Supabase dan Vercel\" berhasil, (c) buka chat BARU. Chat Claude baru tidak mengingat apa pun; ingatan proyek ada di Supabase (dev_prompt_log, dev_notes) dan assets/MEMORY.md di deployment. Meta deployment Vercel boleh kosong, itu normal.\nPELACAK STATUS: simpan di percakapan: prompt selesai, berikutnya, akun aktif beserta jumlah prompt yang sudah dijalankan di akun itu, masalah terbuka. Akhiri balasan penting dengan satu baris \"STATUS: selesai N36-N3x | berikutnya N3y | akun X\". Setelah tiap 3 prompt, atau bila diminta, cetak blok \"STATUS DEVHUB v3\" agar bisa ditempel ke chat Gemini baru (roadmap punya tombol Salin blok status).\nDATA PROYEK: Supabase project \"devhub\" (id azxkkttqpwrzefpnzpdv), Vercel team cleris, project \"devhub\". Pakai ini untuk mengisi <NAMA-DEV>, <ID-DEV>, <TEAM-VERCEL>. Ini bukan rahasia; sandi dan API key tetap tidak boleh ditempel.\nKEAMANAN: jangan minta atau menampung App Password, service_role, atau API key. Bila pengguna menempelkannya, ingatkan untuk menggantinya.\nBATAS: jangan menyuruh DROP (satu-satunya pengecualian: DROP POLICY ganda projects dan sites di N42, setelah pengguna menjawab ya), TRUNCATE, DELETE tanpa WHERE, hapus project, mengubah KONTRAK, atau menghubungkan AI ke runner dan tools. AI tetap hanya Groq di /ai.\nSetelah N42 jangan menambah prompt baru kecuali pengguna meminta.", "pembuka": "Ini file prompt DevHub v3 (N36-N42) dan petunjuk pemandumu. Baca seluruh file, ringkas dalam 5 baris, lalu tanyakan satu hal: \"N35 sudah selesai atau sisanya sudah kuputuskan, dan akun Claude mana yang aktif?\"", "masalah": [["Claude berhenti di tengah", "Ketik: lanjut"], ["Meta deployment terbaca kosong", "Normal: API Vercel sering mengembalikan meta kosong. Memori proyek tetap aman di dev_prompt_log, dev_notes, dan assets/MEMORY.md."], ["Jatah akun habis", "Ganti akun sebelum habis, hubungkan Supabase dan Vercel, uji daftar project, lalu tempel Prompt lanjut di chat baru."], ["Halaman lama hilang setelah deploy", "Minta rollback ke deployment sebelumnya, lalu ulangi dan tekankan: semua file lama ikut."], ["HP masih scroll mendatar", "Kirim tangkapan lebar 390 dan sebut bagian yang terpotong di chat yang sama."], ["Situs minta login Vercel", "Matikan Deployment Protection untuk Production."], ["Email kode tidak masuk", "Cek spam, SMTP, dan batas email per jam di Supabase. Jangan tempel sandi aplikasi."]], "ditunda": ["Kartu proyek bersampul CSS (sampul dan tanda bahasa)", "Playground tanpa nav situs di HP", "Saringan Belajar dan Tools yang tidak bercampur", "Privasi cuplikan daftar chat dan kartu proyek di chat", "Meta pratinjau tautan (butuh render server, JS tidak terbaca WhatsApp)"]};
+const KEY="devhub-v3-roadmap";
+let S={done:{},pre:false,v:["","",""]};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+const DEF=["devhub","azxkkttqpwrzefpnzpdv","cleris"];
+S.v=[0,1,2].map(i=>(S.v&&S.v[i])||DEF[i]);
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
-const cut=(a,b,inc)=>{const i=RAW.indexOf(a);if(i<0)return'';const j=RAW.indexOf(b,i+a.length);return RAW.slice(inc?i:i+a.length,j<0?undefined:inc?j+b.length:j).trim()};
-const GEM=cut('== PETUNJUK UNTUK GEMINI ==','== PERSIAPAN =='),PREP=cut('== PERSIAPAN ==','== ALUR TIAP PROMPT =='),
-ALUR=cut('== ALUR TIAP PROMPT ==','== MASALAH UMUM =='),MAS=cut('== MASALAH UMUM ==','== KONTRAK (ikut'),
-K=cut('KONTRAK DEVHUB v9.1 (taati','[AKHIR KONTRAK]',1),KK=cut('KONTRAK KURSUS (tambahan','[AKHIR KONTRAK KURSUS]',1);
-const P=[],PSEC=RAW.slice(RAW.indexOf('== PROMPT =='));
-const re=/^--- (\d+)\. \[(N\d+)\] (.+?) \| (.+?) \| prasyarat: (.+?) \| berat: (\w+) \| deploy: (\w+) \| jenis: (\w+)\s*$/gm;let m,hs=[];
-while(m=re.exec(PSEC))hs.push({i:m.index,e:re.lastIndex,m});
-hs.forEach((h,k)=>{const body=PSEC.slice(h.e,k+1<hs.length?hs[k+1].i:undefined).trim(),x=body.split(/^Langkah:\s*$/m);
-P.push({n:+h.m[1],id:h.m[2],title:h.m[3],tahap:h.m[4],pre:h.m[5],berat:h.m[6]=='ya',deploy:h.m[7]=='ya',jenis:h.m[8],text:x[0].trim(),
-steps:(x[1]||'').split('\n').filter(l=>/^\s+- /.test(l)).map(l=>l.replace(/^\s+- /,''))})});
-const ACC='ABCDEFG';let cu=0,ai=0;P.forEach(p=>{const w=p.jenis=='kursus'?1.5:p.berat?2:1;if(cu+w>4.5){ai++;cu=0}cu+=w;p.acc=ACC[ai%7];p.rd=Math.floor(ai/7)+1});
-const PR=[];PREP.split(/\n(?=S\d+ )/).forEach(b=>{const l=b.split('\n'),h=l[0].match(/^(S\d+) (.+?) \[(.*?)\]\s*$/);if(h)PR.push({id:h[1],title:h[2],meta:h[3],steps:l.slice(1).filter(x=>/^\s+- /.test(x)).map(x=>x.replace(/^\s+- /,''))})});
-const PREPNOTE=PREP.split('\n').filter(l=>!/^(S\d+ |\s+- )/.test(l)&&l.trim()).join(' ');
-const PH={'<NAMA-DEV>':'nama','<ID-DEV>':'id','<TEAM-VERCEL>':'team','<EMAIL-PENGIRIM>':'email'};
-const fill=t=>{let miss=[];Object.keys(PH).forEach(k=>{const v=(S.set[PH[k]]||'').trim();if(v)t=t.split(k).join(v);else if(t.includes(k))miss.push(k)});return[t,miss]};
-const full=p=>K+(p.jenis=='kursus'?'\n\n'+KK:'')+'\n\nTUGAS ['+p.id+'] '+p.title+'\n'+p.text;
-const resume=p=>full(p)+'\n\nLANJUT: tugas ini sudah sebagian dikerjakan di chat atau akun sebelumnya. Baca memori sesuai [MEMORI] (dev_prompt_log, dev_notes, meta dan file deployment terakhir), cek apa yang sudah ada, lalu selesaikan HANYA bagian yang belum. Jangan mengulang migrasi yang sudah ada.';
-const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)};
-async function copy(t,ok){const [v,miss]=fill(t);try{await navigator.clipboard.writeText(v)}catch(e){const a=document.createElement('textarea');a.value=v;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}toast((ok||'Tersalin')+(miss.length?'. Isi dulu di Pengaturan: '+miss.join(' '):''))}
-const doneN=()=>P.filter(p=>S.done[p.id]).length,nextP=()=>P.find(p=>!S.done[p.id]);
-function status(){const n=nextP();return 'STATUS DEVHUB v9.1\nSelesai ('+doneN()+'/'+P.length+'): '+(P.filter(p=>S.done[p.id]).map(p=>p.id).join(', ')||'belum ada')+'\nBerikutnya: '+(n?n.id+' '+n.title:'semua selesai')+'\nAkun Claude aktif: '+S.acc+(n?' (saran: '+n.acc+', putaran '+n.rd+')':'')+'\nPersiapan selesai: '+(PR.filter(p=>S.st['S:'+p.id]).map(p=>p.id).join(', ')||'belum ada')}
-function badges(p){return '<div class="bg"><span class="'+(p.berat?'hv':'')+'">'+(p.jenis=='kursus'?'Kursus':p.berat?'Berat':'Ringan')+'</span><span>'+(p.deploy?'Deploy':'Tanpa deploy')+'</span><span>Akun '+p.acc+' · putaran '+p.rd+'</span>'+(S.done[p.id]?'<span class="ok">Selesai</span>':'')+'</div>'}
-function steps(p){return p.steps.map((s,i)=>{const k=p.id+':'+i,c=S.st[k];return '<label class="s'+(c?' x':'')+'"><input type="checkbox" data-s="'+k+'"'+(c?' checked':'')+'><span>'+esc(s)+'</span></label>'}).join('')}
-function acts(p){return '<div class="row"><button class="btn p" data-cp="'+p.id+'">Salin prompt</button><button class="btn" data-cr="'+p.id+'">Salin prompt lanjut</button><button class="btn" data-dn="'+p.id+'">'+(S.done[p.id]?'Batalkan selesai':'Tandai selesai')+'</button></div>'}
-function card(p){const o=S.open[p.id];return '<article class="c'+(S.done[p.id]?' d':'')+'" id="'+p.id+'"><div class="h" data-o="'+p.id+'" role="button" tabindex="0" aria-expanded="'+!!o+'"><div><small>'+p.id+'</small><h3>'+esc(p.title)+'</h3>'+badges(p)+'</div><span aria-hidden="true">'+(o?'▾':'▸')+'</span></div>'+(o?'<div class="cb"><p class="mu">Prasyarat: '+esc(p.pre)+'</p>'+acts(p)+'<h2>Langkah</h2>'+steps(p)+'<details><summary>Lihat teks prompt</summary><pre>'+esc(p.text)+'</pre></details></div>':'')+'</article>'}
-function tahapList(){const t={};P.forEach(p=>{(t[p.tahap]=t[p.tahap]||[]).push(p)});return t}
-function side(){return Object.entries(tahapList()).map(([k,a])=>{const d=a.filter(p=>S.done[p.id]).length;return '<div><small>'+esc(k)+' · '+d+'/'+a.length+'</small><div class="pb"><i style="width:'+d/a.length*100+'%"></i></div></div>'}).join('')}
-function vP(){const n=nextP(),q=S.q.toLowerCase();let h='';
-h+=n?'<section class="box nx"><small>Berikutnya · '+n.id+' · saran akun '+n.acc+' (putaran '+n.rd+')</small><h3 style="font-size:1.2rem">'+esc(n.title)+'</h3>'+badges(n)+'<p class="mu">Prasyarat: '+esc(n.pre)+'</p><button class="btn p big" data-cp="'+n.id+'">Salin prompt</button><div class="row"><button class="btn" data-cr="'+n.id+'">Prompt lanjut</button><button class="btn" data-dn="'+n.id+'">Tandai selesai</button><button class="btn" data-o="'+n.id+'">Langkah</button></div></section>':'<section class="box nx"><h3>Semua prompt selesai</h3><p>Jalankan audit N35 bila belum, lalu rilis.</p></section>';
-h+='<details class="box" style="margin-top:1rem"><summary>Pengaturan (isi sekali)</summary><div class="fg"><label>Nama project Supabase<input class="in" data-set="nama" value="'+esc(S.set.nama||'')+'" autocomplete="off"></label><label>Reference ID Supabase<input class="in" data-set="id" value="'+esc(S.set.id||'')+'" autocomplete="off"></label><label>Team Vercel (slug/ID, boleh kosong)<input class="in" data-set="team" value="'+esc(S.set.team||'')+'" autocomplete="off"></label><label>Email pengirim SMTP<input class="in" data-set="email" value="'+esc(S.set.email||'')+'" autocomplete="off"></label><label>Akun Claude aktif<select class="in" data-acc>'+[...ACC].map(a=>'<option'+(a==S.acc?' selected':'')+'>'+a+'</option>').join('')+'</select></label></div><p class="mu">Data hanya tersimpan di browser ini. Jangan isi password atau API key.</p></details>';
-h+='<div class="f" role="group" aria-label="Filter">'+[['all','Semua'],['todo','Belum'],['done','Selesai']].map(([k,l])=>'<button class="btn" data-f="'+k+'" aria-pressed="'+(S.f==k)+'">'+l+'</button>').join('')+'<input type="search" id="q" placeholder="Cari prompt…" value="'+esc(S.q)+'" aria-label="Cari"></div>';
-Object.entries(tahapList()).forEach(([k,a])=>{const l=a.filter(p=>(S.f=='all'||(S.f=='done')==!!S.done[p.id])&&(!q||(p.id+' '+p.title+' '+p.text).toLowerCase().includes(q)));if(!l.length)return;const d=a.filter(p=>S.done[p.id]).length;h+='<h2>'+esc(k)+' <small>'+d+'/'+a.length+'</small></h2>'+l.map(card).join('')});return h}
-function vR(){return '<p class="mu">'+esc(PREPNOTE)+'</p>'+PR.map(p=>'<article class="c"><div class="cb" style="padding-top:.8rem"><small>'+p.id+' · '+esc(p.meta)+'</small><h3>'+esc(p.title)+'</h3>'+p.steps.map((s,i)=>{const k='S:'+p.id,c=S.st[k+i];return '<label class="s'+(c?' x':'')+'"><input type="checkbox" data-s="'+k+i+'"'+(c?' checked':'')+'><span>'+esc(s)+'</span></label>'}).join('')+'<div class="row"><button class="btn" data-ds="'+p.id+'">'+(S.st['S:'+p.id]?'Batalkan selesai':'Tandai persiapan selesai')+'</button></div></div></article>').join('')}
-function vG(){return '<section class="box"><h3>Pakai Gemini sebagai pemandu</h3><ol><li>Salin petunjuk, jadikan Instruksi Gem baru (atau pesan pertama di chat).</li><li>Unduh file txt, unggah ke Gemini.</li><li>Kirim pesan pembuka. Setelah itu ikuti arahan Gemini.</li><li>Tiap selesai prompt, tempel laporan akhir Claude ke Gemini. Kirim "Salin status" bila membuka chat Gemini baru.</li></ol><div class="row"><button class="btn p" data-g="gem">Salin petunjuk Gemini</button><button class="btn" data-g="open">Salin pesan pembuka</button><button class="btn" data-g="st">Salin status</button><button class="btn" data-g="dl">Unduh file txt</button></div></section><h2>Petunjuk yang dibaca Gemini</h2><pre>'+esc(GEM)+'</pre>'}
-function vB(){return '<h2>Alur tiap prompt</h2><pre>'+esc(ALUR)+'</pre><h2>Masalah umum</h2><pre>'+esc(MAS)+'</pre><h2>Kontrak (ikut di setiap prompt)</h2><details><summary>Lihat kontrak</summary><pre>'+esc(K)+'</pre></details><details><summary>Kontrak kursus</summary><pre>'+esc(KK)+'</pre></details><div class="row"><button class="btn" data-g="reset">Reset progres di browser ini</button></div>'}
-function render(){const T=[['p','Prompt'],['r','Persiapan'],['g','Gemini'],['b','Bantuan']];$('#tabs').innerHTML=T.map(([k,l])=>'<button data-t="'+k+'"'+(S.tab==k?' aria-current="page"':'')+'>'+l+'</button>').join('');
-const d=doneN();$('#pg').textContent=d+'/'+P.length+' selesai';$('#bar').style.width=d/P.length*100+'%';
-$('#app').innerHTML='<div class="g"><aside class="side box"><b>Progres per tahap</b><div style="margin-top:.6rem">'+side()+'</div></aside><div>'+({p:vP,r:vR,g:vG,b:vB}[S.tab])()+'</div></div>'}
-const ids=id=>P.find(p=>p.id==id);
-document.addEventListener('click',e=>{const t=e.target.closest('[data-t],[data-o],[data-cp],[data-cr],[data-dn],[data-ds],[data-f],[data-g]');if(!t)return;const D=t.dataset;
-if(D.t){S.tab=D.t;scrollTo(0,0)}else if(D.o){S.open[D.o]=!S.open[D.o]}else if(D.cp){copy(full(ids(D.cp)),'Prompt '+D.cp+' tersalin');return}else if(D.cr){copy(resume(ids(D.cr)),'Prompt lanjut '+D.cr+' tersalin');return}
-else if(D.dn){S.done[D.dn]=!S.done[D.dn];if(S.done[D.dn]){const n=nextP();if(n)toast('Berikutnya: '+n.id)}}else if(D.ds){S.st['S:'+D.ds]=!S.st['S:'+D.ds]}else if(D.f){S.f=D.f}
-else if(D.g=='gem'){copy(GEM,'Petunjuk Gemini tersalin');return}else if(D.g=='open'){copy('Halo Gemini. Baca file devhub_prompts_v9.1.txt yang saya lampirkan, lalu jadilah pemandu saya sesuai bagian PETUNJUK UNTUK GEMINI. Ringkas dulu dalam 5 baris, lalu tanyakan posisi saya sekarang.\n\n'+status(),'Pesan pembuka tersalin');return}
-else if(D.g=='st'){copy(status(),'Status tersalin');return}else if(D.g=='dl'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([RAW],{type:'text/plain'}));a.download='devhub_prompts_v9.1.txt';a.click();return}
-else if(D.g=='reset'){if(confirm('Hapus semua centang dan pengaturan di browser ini?')){S={done:{},st:{},set:{},acc:'A',tab:'p',f:'all',q:'',open:{}};}else return}
-save();render()});
-document.addEventListener('change',e=>{const t=e.target;if(t.dataset.s){S.st[t.dataset.s]=t.checked;const id=t.dataset.s.split(':')[0],p=ids(id);if(p&&t.checked&&p.steps.every((_,i)=>S.st[id+':'+i])&&!S.done[id]){S.done[id]=true;toast(id+' ditandai selesai')}}else if(t.dataset.set){S.set[t.dataset.set]=t.value}else if('acc' in t.dataset){S.acc=t.value}else return;save();render()});
-document.addEventListener('input',e=>{if(e.target.id=='q'){S.q=e.target.value;save();render();const q=$('#q');q.focus();q.setSelectionRange(q.value.length,q.value.length)}});
-document.addEventListener('keydown',e=>{if((e.key=='Enter'||e.key==' ')&&e.target.dataset&&e.target.dataset.o){e.preventDefault();e.target.click()}});
-if(!P.length)document.getElementById('app').innerHTML='<p class="box">Isi file tidak terbaca. Unduh ulang index.html.</p>';else render();
-</script></body></html>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const L="ABCDEFGHIJ";
+// akun saran: kapasitas 3 poin (berat 2, ringan 1), maksimal 1 berat per akun
+(()=>{let a=0,load=0,h=false;D.p.forEach(p=>{const pt=p.berat?2:1;if(load+pt>3||(p.berat&&h)){a++;load=0;h=false}load+=pt;if(p.berat)h=true;p.acc=L[a]})})();
+
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),1800)}
+async function copy(t){try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;document.body.append(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}toast("Tersalin")}
+function fill(t){return t.split("<NAMA-DEV>").join(S.v[0]||"<NAMA-DEV>").split("<ID-DEV>").join(S.v[1]||"<ID-DEV>").split("<TEAM-VERCEL>").join(S.v[2]||"(kosong)")}
+function compose(p,l){let t=D.kontrak+"\n\n"+(l?D.lanjut+"\n\n":"")+"TUGAS ["+p.id+"] "+p.title+"\n"+p.body+"\n\nSimpan memori sesuai [MEMORI]"+(p.deploy?", deploy, beri alamat situs.":".");return fill(t)}
+function state(i){if(S.done[D.p[i].id])return"done";if(i===0)return S.pre?"next":"wait";return S.done[D.p[i-1].id]?"next":"wait"}
+function nextIdx(){return D.p.findIndex((p,i)=>state(i)==="next")}
+
+function render(){
+ const n=D.p.filter(p=>S.done[p.id]).length;
+ $("#pb").style.width=(n/D.p.length*100)+"%";
+ $("#pt").textContent=n+" dari "+D.p.length+" prompt selesai";
+ $("#pre").checked=!!S.pre;
+ ["v1","v2","v3"].forEach((k,i)=>{if(document.activeElement!==$("#"+k))$("#"+k).value=S.v[i]||""});
+ $("#list").innerHTML=D.p.map((p,i)=>{
+  const s=state(i),lock=s==="wait";
+  const need=i===0?"Centang syarat N35 di atas dulu.":"Selesaikan "+D.p[i-1].id+" dulu.";
+  return `<article class="item" data-s="${s}">
+  <div class="head"><span class="id">${p.id}</span><div><div class="t">${esc(p.title)}</div>
+  <div class="meta"><span>${esc(p.tahap)}</span><span class="${p.berat?"heavy":""}">${p.berat?"Berat":"Ringan"}</span><span>${p.deploy?"Deploy":"Tanpa deploy"}</span><span>Akun saran ${p.acc}</span>${s==="done"?'<span class="ok">Selesai</span>':s==="next"?'<span class="ok">Berikutnya</span>':""}</div></div></div>
+  <div class="act"><button class="pri" data-p="${i}" data-l="0" ${lock?"disabled":""}>Salin prompt</button><button data-p="${i}" data-l="1" ${lock?"disabled":""}>Salin prompt lanjut</button></div>
+  ${lock?`<p class="note">${need}</p>`:""}
+  <details><summary>Isi, langkah, dan tes</summary><p class="mut">Prasyarat: ${esc(p.pre)}</p><pre>${esc(p.body)}</pre>
+  <p><b>Tes</b></p><ul class="s">${p.tes.map(x=>"<li>"+esc(x)+"</li>").join("")}<li>Lolos: centang kartu. Gagal: tempel pesan error ke chat yang sama.</li></ul></details>
+  <label class="chk"><input type="checkbox" data-d="${p.id}" ${S.done[p.id]?"checked":""} ${lock&&!S.done[p.id]?"disabled":""}> Sudah lolos tes</label></article>`}).join("");
+ $("#defer").innerHTML=D.ditunda.map(x=>"<li>"+esc(x)+"</li>").join("");
+ $("#mp").innerHTML=D.masalah.map(m=>`<div class="box"><b>${esc(m[0])}</b><p class="mut" style="margin:4px 0 0">${esc(m[1])}</p></div>`).join("");
+ $("#st").textContent=statusText();
+}
+function statusText(){
+ const done=D.p.filter(p=>S.done[p.id]).map(p=>p.id),ni=nextIdx(),nx=ni>=0?D.p[ni]:null;
+ return "STATUS DEVHUB v3\nselesai: "+(done.join(", ")||"belum ada")+"\nberikutnya: "+(nx?nx.id+" "+nx.title:"semua selesai")+"\nakun saran: "+(nx?nx.acc:"-")+"\nN35: "+(S.pre?"selesai":"belum")}
+function fullText(){
+ let t="DEVHUB v3 - REVISI 2 (N36-N42)\nData proyek: Supabase \"devhub\" (id azxkkttqpwrzefpnzpdv), Vercel team cleris, project \"devhub\". Jangan menempel sandi atau API key.\n\n== PETUNJUK UNTUK GEMINI ==\n"+D.gemini+"\n\n== MASALAH UMUM ==\n"+D.masalah.map(m=>"- "+m[0]+": "+m[1]).join("\n")+"\n\n== KONTRAK (ikut di setiap prompt) ==\n"+D.kontrak+"\n\n== PROMPT ==\n";
+ D.p.forEach((p,i)=>{t+="\n--- "+(i+1)+". ["+p.id+"] "+p.title+" | "+p.tahap+" | prasyarat: "+p.pre+" | berat: "+(p.berat?"ya":"tidak")+" | deploy: "+(p.deploy?"ya":"tidak")+"\n"+p.body+"\n\nSimpan memori sesuai [MEMORI]"+(p.deploy?", deploy, beri alamat situs.":".")+"\nTes:\n"+p.tes.map(x=>"  - "+x).join("\n")+"\n"});
+ t+="\n== DITUNDA (belum dibuat) ==\n"+D.ditunda.map(x=>"- "+x).join("\n")+"\n";return t}
+
+document.addEventListener("click",e=>{
+ const b=e.target.closest("button"),tab=e.target.closest("[data-tab]");
+ if(tab){document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===tab));["rm","gm","bt"].forEach(k=>$("#"+k).hidden=k!==tab.dataset.tab);return}
+ if(!b)return;
+ if(b.dataset.p!==undefined){if(!S.v[0]||!S.v[1]){toast("Isi nama dan ID project Supabase dulu");$("#v1").focus();return}copy(compose(D.p[+b.dataset.p],b.dataset.l==="1"));return}
+ if(b.dataset.c){copy(b.dataset.c==="status"?statusText():D[b.dataset.c]);return}
+ if(b.id==="dl"){const u=URL.createObjectURL(new Blob([fullText()],{type:"text/plain"})),a=document.createElement("a");a.href=u;a.download="devhub_prompts_v3.txt";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);return}
+ if(b.id==="reset"&&confirm("Hapus semua centang?")){S.done={};S.pre=false;save();render()}
+});
+document.addEventListener("change",e=>{
+ const t=e.target;
+ if(t.id==="pre"){S.pre=t.checked;save();render()}
+ else if(t.dataset.d){if(t.checked)S.done[t.dataset.d]=true;else{const i=D.p.findIndex(p=>p.id===t.dataset.d);D.p.slice(i).forEach(p=>delete S.done[p.id])}save();render()}
+});
+document.addEventListener("input",e=>{const i=["v1","v2","v3"].indexOf(e.target.id);if(i>=0){S.v[i]=e.target.value.trim();save()}});
+render();
+</script>
+</body>
+</html>
